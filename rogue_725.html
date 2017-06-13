@@ -1,158 +1,123 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Rogue 7.2.5 ST Simulations</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <style>
-      .tab-content > .tab-pane,
-      .pill-content > .pill-pane {
-        display: block;
-        height: 0;
-        overflow-y: hidden;
-      }
-      .tab-content > .active,
-      .pill-content > .active {
-        height: auto;
-      }
-    </style>
-  </head>
-  <body style="background-color: #EEE; padding: 12px">
-    <div class="container" style="background-color: #FFF; border-radius: 12px; padding: 24px">
-      <h1>Rogue 7.2.5 Single Target Simulations</h1>
+---
+title: Rogue 7.2.5 Simulations
+---
+<h1>Rogue 7.2.5 Single Target Simulations</h1>
+<p>
+  <b>Information:</b><br>
+  These simulations are all based on the T19M_NH default profiles from SimulationCraft. Set pieces and legendaries
+  have been modified accordingly.<br>
+  Furthermore, in order to keep the number of combinations from exploding, only the best few legendaries have been used.<br>
+  The target error was 0.2% which means you can consider everything within a ~2k DPS range to be equal and requiring more detailed investigation.
+</p>
+<p>
+  The purpose of these simulations is to get a general idea of how different setups will compare with each other and not
+  to promote any definitive "best builds". Several variables (like different trinkets, WF/TF or ingame situations) are not
+  taken into account. This is why you, as always, should <b>simulate your own character</b> to find your optimal setup.
+</p>
+<div>
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#subtlety" aria-controls="subtlety" role="tab" data-toggle="tab">Subtlety</a></li>
+    <li role="presentation"><a href="#assassination" aria-controls="assassination" role="tab" data-toggle="tab">Assassination</a></li>
+    <li role="presentation"><a href="#outlaw" aria-controls="outlaw" role="tab" data-toggle="tab">Outlaw</a></li>
+  </ul>
+  <div class="tab-content" style="padding: 12px">
+    <div role="tabpanel" class="tab-pane active" id="subtlety">
       <p>
-        <b>Information:</b><br>
-        These simulations are all based on the T19M_NH default profiles from SimulationCraft. Set pieces and legendaries
-        have been modified accordingly.<br>
-        Furthermore, in order to keep the number of combinations from exploding, only the best few legendaries have been used.<br>
-        The target error was 0.2% which means you can consider everything within a ~2k DPS range to be equal and requiring more detailed investigation.
+        <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/pubchart?oid=1910507627&amp;format=image"></iframe>
       </p>
-      <p>
-        The purpose of these simulations is to get a general idea of how different setups will compare with each other and not
-        to promote any definitive "best builds". Several variables (like different trinkets, WF/TF or ingame situations) are not
-        taken into account. This is why you, as always, should <b>simulate your own character</b> to find your optimal setup.
-      </p>
-      <div>
-        <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#subtlety" aria-controls="subtlety" role="tab" data-toggle="tab">Subtlety</a></li>
-          <li role="presentation"><a href="#assassination" aria-controls="assassination" role="tab" data-toggle="tab">Assassination</a></li>
-          <li role="presentation"><a href="#outlaw" aria-controls="outlaw" role="tab" data-toggle="tab">Outlaw</a></li>
-        </ul>
-        <div class="tab-content" style="padding: 12px">
-          <div role="tabpanel" class="tab-pane active" id="subtlety">
-            <p>
-              <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/pubchart?oid=1910507627&amp;format=image"></iframe>
-            </p>
-            <div data-type="AwesomeTableView" data-viewID="-KliSyMjaHnetnZqgx2G"></div>
-            <div id="subtlety-chart" style="width: 100%"></div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="assassination">
-            <p>
-              <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/pubchart?oid=1550124599&amp;format=image"></iframe>
-            </p>
-            <div class="alert alert-warning" role="alert">
-              <b>Warning!</b> There is currently a bug in the Assassination APL causing incorrect Vanish usage in Nightstalker profiles using Mantle without T19 which makes these builds less valuable than they should be.
-            </div>
-            <div data-type="AwesomeTableView" data-viewID="-KmC54t_Yp980zmFVANT"></div>
-            <div id="assassination-chart" style="width: 100%"></div>
-          </div>
-          <div role="tabpanel" class="tab-pane" id="outlaw">
-            <p>
-              <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/pubchart?oid=1447210209&amp;format=image"></iframe>
-            </p>
-            <div data-type="AwesomeTableView" data-viewID="-KmC5JHjA2BmFSMIxz56"></div>
-            <div id="outlaw-chart" style="width: 100%"></div>
-          </div>
-        </div>
-      </div>
+      <div data-type="AwesomeTableView" data-viewID="-KliSyMjaHnetnZqgx2G"></div>
+      <div id="subtlety-chart" style="width: 100%"></div>
     </div>
+    <div role="tabpanel" class="tab-pane" id="assassination">
+      <p>
+        <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/pubchart?oid=1550124599&amp;format=image"></iframe>
+      </p>
+      <div class="alert alert-warning" role="alert">
+        <b>Warning!</b> There is currently a bug in the Assassination APL causing incorrect Vanish usage in Nightstalker profiles using Mantle without T19 which makes these builds less valuable than they should be.
+      </div>
+      <div data-type="AwesomeTableView" data-viewID="-KmC54t_Yp980zmFVANT"></div>
+      <div id="assassination-chart" style="width: 100%"></div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="outlaw">
+      <p>
+        <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/pubchart?oid=1447210209&amp;format=image"></iframe>
+      </p>
+      <div data-type="AwesomeTableView" data-viewID="-KmC5JHjA2BmFSMIxz56"></div>
+      <div id="outlaw-chart" style="width: 100%"></div>
+    </div>
+  </div>
+</div>
+<script src="https://awesome-table.com/AwesomeTableInclude.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(queryCharts);
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    <script src="https://awesome-table.com/AwesomeTableInclude.js"></script>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['corechart']});
-      google.charts.setOnLoadCallback(queryCharts);
+  function queryCharts() {
+    var squery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201', {
+      sendMethod: 'auto'
+    });
+    squery.send(handleSubtletyQueryResponse);
+    var aquery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201&gid=2085964844', {
+      sendMethod: 'auto'
+    });
+    aquery.send(handleAssassinationQueryResponse);
+    var oquery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201&gid=1861867809', {
+      sendMethod: 'auto'
+    });
+    oquery.send(handleOutlawQueryResponse);
+  }
 
-      function queryCharts() {
-        var squery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201', {
-          sendMethod: 'auto'
-        });
-        squery.send(handleSubtletyQueryResponse);
-        var aquery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201&gid=2085964844', {
-          sendMethod: 'auto'
-        });
-        aquery.send(handleAssassinationQueryResponse);
-        var oquery = new google.visualization.Query('https://docs.google.com/spreadsheets/d/1yY4mqTRJ0BUJk2WegQ6SXw8l1Z4GxEcj_npbV2xpLE8/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201&gid=1861867809', {
-          sendMethod: 'auto'
-        });
-        oquery.send(handleOutlawQueryResponse);
-      }
+  function handleSubtletyQueryResponse(response) {
+    drawChart('subtlety-chart', response);
+  }
 
-      function handleSubtletyQueryResponse(response) {
-        drawChart('subtlety-chart', response);
-      }
+  function handleAssassinationQueryResponse(response) {
+    drawChart('assassination-chart', response);
+  }
 
-      function handleAssassinationQueryResponse(response) {
-        drawChart('assassination-chart', response);
-      }
+  function handleOutlawQueryResponse(response) {
+    drawChart('outlaw-chart', response);
+  }
 
-      function handleOutlawQueryResponse(response) {
-        drawChart('outlaw-chart', response);
-      }
+  function drawChart(element, response) {
+    if (response.isError()) {
+      alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+      return;
+    }
 
-      function drawChart(element, response) {
-        if (response.isError()) {
-          alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-          return;
+    var data = response.getDataTable();
+
+    // Set chart options
+    var options = {
+      title:'Top 50 Profiles',
+      width: '100%',
+      height: 1000,
+      chartArea:{
+        top: 50,
+        bottom: 50
+      },
+      hAxis: {
+        textStyle: {
+          fontSize: 10
+        },
+        gridlines: {
+          count: 20
+        },
+        viewWindow: {
+          min: 0
         }
+      },
+      vAxis: {
+        textStyle: {
+          fontSize: 10
+        }
+      },
+      legend: { position: "none" }
+    };
 
-        var data = response.getDataTable();
-
-        // Set chart options
-        var options = {
-          title:'Top 50 Profiles',
-          width: '100%',
-          height: 1000,
-          chartArea:{
-            top: 50,
-            bottom: 50
-          },
-          hAxis: {
-            textStyle: {
-              fontSize: 10
-            },
-            gridlines: {
-              count: 20
-            },
-            viewWindow: {
-              min: 0
-            }
-          },
-          vAxis: {
-            textStyle: {
-              fontSize: 10
-            }
-          },
-          legend: { position: "none" }
-        };
-
-        // Instantiate and draw our chart, passing in some options.
-        var chart = new google.visualization.BarChart(document.getElementById(element));
-        chart.draw(data, options);
-      }
-    </script>
-    <script>
-      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-      ga('create', 'UA-100758706-1', 'auto');
-      ga('send', 'pageview');
-    </script>
-  </body>
-</html>
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.BarChart(document.getElementById(element));
+    chart.draw(data, options);
+  }
+</script>

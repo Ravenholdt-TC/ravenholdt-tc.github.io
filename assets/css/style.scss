@@ -1,0 +1,28 @@
+---
+---
+
+body {
+    padding: 12px;
+    background-color: #EEE;
+}
+
+.container {
+    background-color: #FFF;
+    border-radius: 12px;
+    padding: 24px;
+}
+
+.center {
+    margin: auto;
+}
+
+.tab-content > .tab-pane,
+.pill-content > .pill-pane {
+    display: block;
+    height: 0;
+    overflow-y: hidden;
+}
+.tab-content > .active,
+.pill-content > .active {
+    height: auto;
+}

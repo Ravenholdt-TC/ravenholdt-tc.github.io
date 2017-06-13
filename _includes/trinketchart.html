@@ -1,0 +1,78 @@
+<div id="chart_div" style="width: 100%; height: 1000px"></div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function excludeEmptyRows(dataTable)
+  {
+    var view = new google.visualization.DataView(dataTable);
+    var rowIndexes = view.getFilteredRows([{column: 1, value: null}]);
+    view.hideRows(rowIndexes);
+    return view.toDataTable();
+  }
+
+  function drawChart() {
+
+    var query = new google.visualization.Query('{{ page.csvfile }}', {
+      csvColumns: ['string', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'],
+      csvHasHeader: false
+    });
+    query.send(handleQueryResponse);
+  }
+
+  function handleQueryResponse(response) {
+    if (response.isError()) {
+      alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
+      return;
+    }
+
+    var data = response.getDataTable();
+    data.sort({column: data.getNumberOfColumns() - 1, desc: true});
+
+    // Calculate Differences
+    for (var row = 0; row < data.getNumberOfRows(); row++) {
+      var prevVal = 0;
+      for (var col = 1; col < data.getNumberOfColumns(); col++) {
+        var curVal = data.getValue(row, col)
+        data.setValue(row, col, curVal - prevVal);
+        prevVal = curVal;
+      }
+    }
+
+    // Item Level Labels
+    var header = ['Trinket', 900, 905, 910, 915, 920, 925, 930, 935, 940, 945, 950, 955];
+    for (var col = 0; col < data.getNumberOfColumns(); col++) {
+      data.setColumnLabel(col, header[col]);
+    }
+
+    // Set chart options
+    var options = {
+      title:'{{ page.charttitle }}',
+      chartArea:{
+        top: 50,
+        bottom: 100
+      },
+      hAxis: {
+        title: 'DPS Increase',
+        gridlines: {
+          count: 20
+        },
+        viewWindow: {
+          min: 0
+        }
+      },
+      vAxis: {
+        title: 'Trinket',
+        textStyle: {
+          fontSize: 12
+        }
+      },
+      isStacked: true
+    };
+
+    // Instantiate and draw our chart, passing in some options.
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+    chart.draw(excludeEmptyRows(data), options);
+  }
+</script>

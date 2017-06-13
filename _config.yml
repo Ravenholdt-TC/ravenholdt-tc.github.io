@@ -1,0 +1,13 @@
+name: Ravenholdt Theorycrafting
+description: Rogue TC Data Collection Site
+url: https://ravenholdt-tc.github.io
+defaults:
+  -
+    scope:
+      path: "" # an empty string here means all files in the project
+    values:
+      layout: "default"
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - devserve.bat
