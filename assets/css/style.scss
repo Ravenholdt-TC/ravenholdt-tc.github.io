@@ -7,8 +7,17 @@ body {
 }
 
 .container {
-    background-color: #FFF;
     border-radius: 12px;
+}
+
+.navbar {
+    text-align: center;
+    background-color: #000;
+    margin-bottom: 12px;
+}
+
+#content {
+    background-color: #FFF;
     padding: 24px;
 }
 
