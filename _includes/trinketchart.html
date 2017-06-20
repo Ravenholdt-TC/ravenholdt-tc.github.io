@@ -13,9 +13,12 @@
   }
 
   function drawChart() {
-
+    var columntypes = ['string'];
+    for (var i = {{ page.min_ilevel }}; i <= {{ page.max_ilevel }}; i += {{ page.ilevel_steps }}) {
+      columntypes.push('number');
+    }
     var query = new google.visualization.Query('{{ page.csvfile }}', {
-      csvColumns: ['string', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number', 'number'],
+      csvColumns: columntypes,
       csvHasHeader: false
     });
     query.send(handleQueryResponse);
@@ -41,7 +44,10 @@
     }
 
     // Item Level Labels
-    var header = ['Trinket', 900, 905, 910, 915, 920, 925, 930, 935, 940, 945, 950, 955];
+    var header = ['Trinket'];
+    for (var i = {{ page.min_ilevel }}; i <= {{ page.max_ilevel }}; i += {{ page.ilevel_steps }}) {
+      header.push(i);
+    }
     for (var col = 0; col < data.getNumberOfColumns(); col++) {
       data.setColumnLabel(col, header[col]);
     }
