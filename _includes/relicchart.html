@@ -1,4 +1,4 @@
-<div id="chart_div" style="width: 100%; height: 500px"></div>
+<div id="chart_div" style="width: 100%; height: {{ page.chartheight }}"></div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
@@ -56,7 +56,9 @@
       title:'{{ page.charttitle }}',
       chartArea:{
         top: 50,
-        bottom: 100
+        bottom: 100,
+        left: 150,
+        right: 50
       },
       hAxis: {
         title: 'DPS Increase',
@@ -74,7 +76,7 @@
       },
       annotations: {
         textStyle: {
-          fontSize: 12,
+          fontSize: 10,
         },
       },
       legend: { position: "none" },
