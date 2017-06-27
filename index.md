@@ -17,7 +17,7 @@ Here are links you may want to check out for further information:
 
 If you have any questions, feel free to visit the class Discord and contact Aethys or Mystler.
 
-{% assign simulations = site.pages | group_by: "simulation" %}
+{% assign simulations = site.pages | group_by: "simulation" | sort: "name" %}
 {% for simulation in simulations %}
 {% unless simulation.name == '' %}
 <h3>{{ simulation.name }}</h3>

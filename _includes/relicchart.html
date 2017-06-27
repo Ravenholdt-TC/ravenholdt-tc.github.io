@@ -34,7 +34,7 @@
       columntypes.push('number'); // Value
       columntypes.push('string'); // Annotation
     }
-    var query = new google.visualization.Query('{{ page.csvfile }}', {
+    var query = new google.visualization.Query('/{{ page.csvfile }}', {
       csvColumns: columntypes,
       csvHasHeader: false
     });

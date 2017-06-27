@@ -29,7 +29,7 @@
     for (var i = {{ page.min_ilevel }}; i <= {{ page.max_ilevel }}; i += {{ page.ilevel_steps }}) {
       columntypes.push('number');
     }
-    var query = new google.visualization.Query('{{ page.csvfile }}', {
+    var query = new google.visualization.Query('/{{ page.csvfile }}', {
       csvColumns: columntypes,
       csvHasHeader: false
     });
