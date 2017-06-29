@@ -65,8 +65,11 @@
     }
 
     // Set chart options
+    var bgcol = isDarkTheme() ? '#222' : '#FFF';
+    var textcol = isDarkTheme() ? '#CCC' : '#000';
     var options = {
       title:'{{ page.charttitle }}',
+      backgroundColor: bgcol,
       chartArea:{
         top: 50,
         bottom: 100,
@@ -80,12 +83,30 @@
         },
         viewWindow: {
           min: 0
+        },
+        textStyle: {
+          color: textcol,
+        },
+        titleTextStyle: {
+          color: textcol,
         }
       },
       vAxis: {
         textStyle: {
-          fontSize: 12
+          fontSize: 12,
+          color: textcol,
+        },
+        titleTextStyle: {
+          color: textcol,
         }
+      },
+      legend: {
+        textStyle: {
+          color: textcol
+        }
+      },
+      titleTextStyle: {
+        color: textcol,
       },
       isStacked: true
     };

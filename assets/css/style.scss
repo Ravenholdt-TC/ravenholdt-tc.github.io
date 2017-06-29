@@ -1,10 +1,20 @@
 ---
 ---
 
+// Color Variables
+$bg: #EEE;
+$bg-dark: #111;
+$content-bg: #FFF;
+$content-bg-dark: #222;
+$text-dark: #CCC;
+$link-dark: #B77C33;
+$border-dark: #080808;
+
+// General
 body {
     padding: 12px;
     padding-top: 62px;
-    background-color: #EEE;
+    background-color: $bg;
 }
 
 .container {
@@ -18,14 +28,61 @@ body {
 }
 
 #content {
-    background-color: #FFF;
+    background-color: $content-bg;
     padding: 24px;
 }
 
+#theme-switch {
+    color: #777;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+// Dark Theme
+body.dark-theme {
+    background-color: $bg-dark;
+    color: $text-dark;
+}
+
+body.dark-theme #content {
+    border: 1px solid $border-dark;
+    background-color: $content-bg-dark;
+}
+
+body.dark-theme a {
+    color: $link-dark;
+}
+
+body.dark-theme a:hover {
+    color: lighten($link-dark, 20%);
+}
+
+body.dark-theme .dropdown-menu>li>a {
+    color: $text-dark;
+}
+
+body.dark-theme .dropdown-menu .divider {
+    background-color: $border-dark;
+}
+
+body.dark-theme a.list-group-item,
+body.dark-theme .dropdown-menu {
+    background-color: lighten($content-bg-dark, 8%);
+    border-color: $border-dark;
+    color: $text-dark;
+}
+
+body.dark-theme a.list-group-item:hover,
+body.dark-theme .dropdown-menu>li>a:hover {
+    background-color: lighten($content-bg-dark, 16%);
+}
+
+// Helpers
 .center {
     margin: auto;
 }
 
+// This allows Google charts in tabs
 .tab-content > .tab-pane,
 .pill-content > .pill-pane {
     display: block;
