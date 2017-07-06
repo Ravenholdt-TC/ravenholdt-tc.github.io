@@ -12,79 +12,108 @@
   taken into account. This is why you, as always, should <b>simulate your own character</b> to find your optimal setup.
 </p>
 <p>
-  <iframe width="286" height="99" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/{{ page.googledoc_id }}/pubchart?oid={{ page.googleimg_id }}&amp;format=image"></iframe>
+  <b>Last Update:</b> {{ page.lastupdate }}<br>
+  <b>WoW-Build:</b> {{ page.build }}
 </p>
-<div data-type="AwesomeTableView" data-viewID="{{ page.awesometable }}"></div>
-<div id="combinator-chart" style="width: 100%"></div>
-<script src="https://awesome-table.com/AwesomeTableInclude.js"></script>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(queryCharts);
+<table id="combinator-table" class="table table-hover">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Talents</th>
+      <th>Sets</th>
+      <th>Legendaries</th>
+      <th>DPS</th>
+    </tr>
+    <tr id="combinator-table-filters">
+      <th></th>
+      <th><input id="combinator-table-filter-talents" type="text" class="form-control input-sm" onkeyup="updateCombinatorTable()"></input></th>
+      <th>
+        <select id="combinator-table-filter-set" class="form-control input-sm" onchange="updateCombinatorTable()">
+          <option>All</option>
+        </select>
+      </th>
+      <th>
+        <select id="combinator-table-filter-legendary" class="form-control input-sm" onchange="updateCombinatorTable()">
+          <option>All</option>
+        </select>
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+</table>
+<div id="combinator-loading" class="text-center">
+  <h2>Loading...</h2>
+</div>
+<div id="combinator-table-nav" class="text-right"></div>
+<script src="/assets/js/jquery.csv.min.js"></script>
+<script src="/assets/js/jquery.twbsPagination.min.js"></script>
+<script>
+  var combinatorRows;
 
-  function queryCharts() {
-    var query = new google.visualization.Query('https://docs.google.com/spreadsheets/d/{{ page.googledoc_id }}/gviz/tq?tq=select%20A,%20E%20limit%2050%20offset%201&gid={{ page.googlesheet_id }}', {
-      sendMethod: 'auto'
+  function updateCombinatorTable() {
+    combinatorRows = document.querySelectorAll('#combinator-table tbody tr');
+    var filterTalents = document.getElementById('combinator-table-filter-talents').value;
+    var filterSet = document.getElementById('combinator-table-filter-set').value;
+    var filterLegendary = document.getElementById('combinator-table-filter-legendary').value;
+    combinatorRows = $.grep(combinatorRows, function(el, idx) {
+      if (filterTalents !== "" && $('td:eq(1):contains("'+ filterTalents + '")', el).length == 0)
+          return false;
+      if (filterSet !== "All" && $('td:eq(2)', el).text() != filterSet)
+          return false;
+      if (filterLegendary !== "All" && $('td:eq(3):contains("'+ filterLegendary + '")', el).length == 0)
+          return false;
+      return true;
     });
-    query.send(handleQueryResponse);
+    if ($('#combinator-table-nav').data("twbs-pagination"))
+      $('#combinator-table-nav').twbsPagination('destroy');
+    $('#combinator-table-nav').twbsPagination({
+      totalPages: Math.max(1, Math.ceil(combinatorRows.length / 15)),
+      visiblePages: 3,
+      onPageClick: function(event, page) {
+        $('#combinator-table tbody tr:visible').hide();
+        $(combinatorRows).slice((page - 1) * 15, page * 15).show();
+      }
+    });
   }
 
-  function handleQueryResponse(response) {
-    drawChart('combinator-chart', response);
-  }
-
-  function drawChart(element, response) {
-    if (response.isError()) {
-      alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-      return;
-    }
-
-    var data = response.getDataTable();
-
-    // Set chart options
-    var bgcol = isDarkTheme() ? '#222' : '#FFF';
-    var textcol = isDarkTheme() ? '#CCC' : '#000';
-    var options = {
-      title:'Top 50 Profiles',
-      width: '100%',
-      height: 1000,
-      backgroundColor: bgcol,
-      chartArea:{
-        top: 50,
-        bottom: 50
-      },
-      hAxis: {
-        textStyle: {
-          fontSize: 10,
-          color: textcol
-        },
-        titleTextStyle: {
-          color: textcol,
-        },
-        gridlines: {
-          count: 20
-        },
-        viewWindow: {
-          min: 0
+  $(document).ready(function() {
+    $.get('/{{ page.csvfile }}', function(data) {
+      var arrays = $.csv.toArrays(data);
+      arrays.sort(function(a, b) {
+        return b[3] - a[3];
+      });
+      var html = "<tbody>";
+      var idx = 0;
+      var sets = [];
+      var legos = [];
+      arrays.forEach(function(columns) {
+        idx++;
+        html += "<tr>";
+        html += "<td>" + idx + "</td>";
+        html += "<td>" + columns[0] + "</td>";
+        html += "<td>" + columns[1] + "</td>";
+        if ($.inArray(columns[1], sets) < 0) {
+          sets.push(columns[1]);
         }
-      },
-      vAxis: {
-        textStyle: {
-          fontSize: 10,
-          color: textcol
-        },
-        titleTextStyle: {
-          color: textcol,
-        }
-      },
-      titleTextStyle: {
-        color: textcol,
-      },
-      legend: { position: "none" }
-    };
-
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.BarChart(document.getElementById(element));
-    chart.draw(data, options);
-  }
+        html += "<td>" + columns[2] + "</td>";
+        columns[2].split(", ").forEach(function(lego) {
+          if ($.inArray(lego, legos) < 0) {
+            legos.push(lego);
+          }
+        });
+        html += "<td>" + columns[3].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+        html += "</tr>";
+      });
+      html += "</tbody>";
+      document.getElementById('combinator-table').insertAdjacentHTML('beforeend', html);
+      sets.forEach(function(set) {
+        document.getElementById('combinator-table-filter-set').insertAdjacentHTML('beforeend', "<option>" + set + "</option>");
+      });
+      legos.forEach(function(lego) {
+        document.getElementById('combinator-table-filter-legendary').insertAdjacentHTML('beforeend', "<option>" + lego + "</option>");
+      });
+      updateCombinatorTable();
+      document.getElementById('combinator-loading').style.display = 'none';
+    });
+  });
 </script>

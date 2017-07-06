@@ -26,7 +26,7 @@ function setDarkTheme(enabled) {
 
 function updateThemeSwitchText() {
   if (isDarkTheme())
-    document.getElementById("theme-switch").innerHTML = "Dark Theme (BETA)";
+    document.getElementById("theme-switch").innerHTML = "Dark Theme";
   else
     document.getElementById("theme-switch").innerHTML = "Light Theme";
 }

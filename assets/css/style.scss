@@ -21,6 +21,13 @@ body {
     border-radius: 12px;
 }
 
+#navigation {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+}
+
 #header {
     text-align: center;
     margin-bottom: 12px;
@@ -36,6 +43,10 @@ body {
     color: #777;
     cursor: pointer;
     text-decoration: none;
+}
+
+#combinator-table-filters .form-control {
+    max-width: 150px;
 }
 
 // Dark Theme
@@ -66,14 +77,32 @@ body.dark-theme .dropdown-menu .divider {
 }
 
 body.dark-theme a.list-group-item,
-body.dark-theme .dropdown-menu {
+body.dark-theme a.page-link,
+body.dark-theme a.page-link:focus,
+body.dark-theme .dropdown-menu,
+body.dark-theme .dropdown-menu>li>a:focus,
+body.dark-theme .form-control {
     background-color: lighten($content-bg-dark, 8%);
     border-color: $border-dark;
     color: $text-dark;
 }
 
 body.dark-theme a.list-group-item:hover,
+body.dark-theme a.page-link:hover,
+body.dark-theme .pagination>.active>a,
 body.dark-theme .dropdown-menu>li>a:hover {
+    background-color: lighten($content-bg-dark, 16%);
+    border-color: $border-dark;
+    color: $text-dark;
+}
+
+body.dark-theme .form-control:focus {
+    border-color: $text-dark;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+}
+
+body.dark-theme .table-hover>tbody>tr:hover {
     background-color: lighten($content-bg-dark, 16%);
 }
 
