@@ -111,6 +111,13 @@ body.dark-theme .table-hover>tbody>tr:hover {
     margin: auto;
 }
 
+.chart-tooltip {
+    font-size: 18px;
+    padding: 12px;
+    color: #000;
+    white-space: nowrap;
+}
+
 // This allows Google charts in tabs
 .tab-content > .tab-pane,
 .pill-content > .pill-pane {

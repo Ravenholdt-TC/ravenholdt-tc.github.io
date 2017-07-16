@@ -45,16 +45,6 @@
     var data = response.getDataTable();
     data.sort({column: data.getNumberOfColumns() - 1, desc: true});
 
-    // Calculate Differences
-    for (var row = 0; row < data.getNumberOfRows(); row++) {
-      var prevVal = 0;
-      for (var col = 1; col < data.getNumberOfColumns(); col++) {
-        var curVal = data.getValue(row, col)
-        data.setValue(row, col, curVal - prevVal);
-        prevVal = curVal;
-      }
-    }
-
     // Item Level Labels
     var header = ['Trinket'];
     for (var i = {{ page.min_ilevel }}; i <= {{ page.max_ilevel }}; i += {{ page.ilevel_steps }}) {
@@ -62,6 +52,27 @@
     }
     for (var col = 0; col < data.getNumberOfColumns(); col++) {
       data.setColumnLabel(col, header[col]);
+    }
+
+    // Add Tooltip columns
+    for (var col = 2; col <= data.getNumberOfColumns(); col += 2) {
+      data.insertColumn(col, { type: 'string', role: 'tooltip', 'p': { 'html': true } });
+    }
+
+    // Calculate Differences
+    for (var row = 0; row < data.getNumberOfRows(); row++) {
+      var prevVal = 0;
+      for (var col = 1; col < data.getNumberOfColumns(); col += 2) {
+        var curVal = data.getValue(row, col)
+        var stepVal = curVal - prevVal;
+        var tooltip = '<div class="chart-tooltip"><b>' + data.getValue(row, 0) +
+          '<br> Item Level ' + data.getColumnLabel(col) + '</b>' +
+          '<br><b>Total:</b> ' + formatNumber(curVal.toFixed()) +
+          '<br><b>Increase:</b> ' + formatNumber(stepVal.toFixed()) + '</div>';
+        data.setValue(row, col + 1, tooltip);
+        data.setValue(row, col, stepVal);
+        prevVal = curVal;
+      }
     }
 
     // Set chart options
@@ -107,6 +118,9 @@
       },
       titleTextStyle: {
         color: textcol,
+      },
+      tooltip: {
+        isHtml: true
       },
       isStacked: true
     };

@@ -57,12 +57,22 @@
       data.setColumnProperties(col, {type:'string', role:'annotation'})
     }
 
+    // Add Tooltip columns
+    for (var col = 3; col <= data.getNumberOfColumns(); col += 3) {
+      data.insertColumn(col, { type: 'string', role: 'tooltip', 'p': { 'html': true } });
+    }
+
     // Calculate Differences
     for (var row = 0; row < data.getNumberOfRows(); row++) {
       var prevVal = 0;
-      for (var col = 1; col < data.getNumberOfColumns(); col += 2) {
+      for (var col = 1; col < data.getNumberOfColumns(); col += 3) {
         var curVal = data.getValue(row, col)
-        data.setValue(row, col, curVal - prevVal);
+        var stepVal = curVal - prevVal;
+        var tooltip = '<div class="chart-tooltip"><b>' + data.getValue(row, col + 1) + 'x ' + data.getValue(row, 0) +
+          '</b><br><b>Total:</b> ' + formatNumber(curVal.toFixed()) +
+          '<br><b>Increase:</b> ' + formatNumber(stepVal.toFixed()) + '</div>';
+        data.setValue(row, col + 2, tooltip);
+        data.setValue(row, col, stepVal);
         prevVal = curVal;
       }
     }
@@ -111,7 +121,12 @@
       titleTextStyle: {
         color: textcol,
       },
-      legend: { position: "none" },
+      tooltip: {
+        isHtml: true
+      },
+      legend: {
+        position: "none"
+      },
       isStacked: true
     };
 

@@ -101,7 +101,7 @@
             legos.push(lego);
           }
         });
-        html += "<td>" + columns[3].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") + "</td>";
+        html += "<td>" + formatNumber(columns[3]) + "</td>";
         html += "</tr>";
       });
       html += "</tbody>";

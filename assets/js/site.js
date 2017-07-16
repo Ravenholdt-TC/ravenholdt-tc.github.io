@@ -39,3 +39,7 @@ function onThemeSwitchClick() {
 function refreshTheme() {
   setDarkTheme(isDarkTheme());
 }
+
+function formatNumber(number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
