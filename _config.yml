@@ -12,3 +12,4 @@ exclude:
   - Gemfile.lock
   - devserve.bat
   - README.md
+  - UpdateDates.rb
