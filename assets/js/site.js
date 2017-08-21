@@ -1,9 +1,9 @@
 function isDarkTheme() {
   if (typeof(Storage) !== "undefined") {
-    if (localStorage.getItem("darkTheme") === "true")
-      return true;
-    else
+    if (localStorage.getItem("darkTheme") === "false")
       return false;
+    else
+      return true;
   } else {
     // Your browser is old shit...
     return false;
@@ -26,9 +26,9 @@ function setDarkTheme(enabled) {
 
 function updateThemeSwitchText() {
   if (isDarkTheme())
-    document.getElementById("theme-switch").innerHTML = "Dark Theme";
+    document.getElementById("theme-switch").innerHTML = "Switch to Light Theme";
   else
-    document.getElementById("theme-switch").innerHTML = "Light Theme";
+    document.getElementById("theme-switch").innerHTML = "Switch to Dark Theme";
 }
 
 function onThemeSwitchClick() {
