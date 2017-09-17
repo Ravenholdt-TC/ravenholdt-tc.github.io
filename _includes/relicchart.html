@@ -85,6 +85,10 @@
         data.setValue(row, col + 2, tooltip);
         data.setValue(row, col + 3, relicStyle);
         data.setValue(row, col, stepVal);
+        if (stepVal < 0) {
+          data.setValue(row, col, 0);
+          data.setValue(row, col + 1, '');
+        }
         prevVal = curVal;
       }
     }
