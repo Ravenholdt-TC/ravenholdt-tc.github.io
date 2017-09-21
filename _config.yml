@@ -1,6 +1,6 @@
 name: Ravenholdt Theorycrafting
 description: Rogue TC Data Collection Site
-url: https://ravenholdt-tc.github.io
+url: http://tc.ravenholdt.net
 defaults:
   -
     scope:
