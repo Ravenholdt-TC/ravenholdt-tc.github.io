@@ -13,3 +13,5 @@ exclude:
   - devserve.bat
   - README.md
   - UpdateDates.rb
+plugins:
+  - jekyll-sitemap
