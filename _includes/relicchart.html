@@ -89,7 +89,7 @@
           data.setValue(row, col, 0);
           data.setValue(row, col + 1, '');
         }
-        prevVal = curVal;
+        prevVal = curVal > prevVal ? curVal : prevVal;
       }
     }
 

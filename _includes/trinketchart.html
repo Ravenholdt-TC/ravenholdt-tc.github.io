@@ -11,6 +11,7 @@
   If your character is different from the setup used here, personal simulations are recommended.
 </p>
 <div id="chart_div" style="width: 100%; height: {{ page.chartheight }}"></div>
+<script type="text/javascript" src="/assets/js/jquery.csv.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
   google.charts.load('current', {'packages':['corechart']});
@@ -25,108 +26,94 @@
   }
 
   function drawChart() {
-    var columntypes = ['string'];
-    for (var i = {{ page.min_ilevel }}; i <= {{ page.max_ilevel }}; i += {{ page.ilevel_steps }}) {
-      columntypes.push('number');
-    }
-    var query = new google.visualization.Query('/{{ page.csvfile }}', {
-      csvColumns: columntypes,
-      csvHasHeader: false
-    });
-    query.send(handleQueryResponse);
-  }
+    $.get('/{{ page.csvfile }}', function(csvString) {
+      var arrayData = $.csv.toArrays(csvString, {onParseValue: function(value, state) {
+        if (state.rowNum <= 1) {
+          return value.toString();
+        }
+        return $.csv.hooks.castToScalar(value, state);
+      }});
+      var data = new google.visualization.arrayToDataTable(arrayData);
 
-  function handleQueryResponse(response) {
-    if (response.isError()) {
-      alert('Error in query: ' + response.getMessage() + ' ' + response.getDetailedMessage());
-      return;
-    }
+      var sortArray = []
+      for (var col = data.getNumberOfColumns() - 1; col > 0; col--)
+        sortArray.push({column: col, desc: true})
+      data.sort(sortArray);
 
-    var data = response.getDataTable();
-    data.sort({column: data.getNumberOfColumns() - 1, desc: true});
-
-    // Item Level Labels
-    var header = ['Trinket'];
-    for (var i = {{ page.min_ilevel }}; i <= {{ page.max_ilevel }}; i += {{ page.ilevel_steps }}) {
-      header.push(i);
-    }
-    for (var col = 0; col < data.getNumberOfColumns(); col++) {
-      data.setColumnLabel(col, header[col]);
-    }
-
-    // Add Tooltip columns
-    for (var col = 2; col <= data.getNumberOfColumns(); col += 2) {
-      data.insertColumn(col, { type: 'string', role: 'tooltip', 'p': { 'html': true } });
-    }
-
-    // Calculate Differences
-    for (var row = 0; row < data.getNumberOfRows(); row++) {
-      var prevVal = 0;
-      for (var col = 1; col < data.getNumberOfColumns(); col += 2) {
-        var curVal = data.getValue(row, col)
-        var stepVal = curVal - prevVal;
-        var tooltip = '<div class="chart-tooltip"><b>' + data.getValue(row, 0) +
-          '<br> Item Level ' + data.getColumnLabel(col) + '</b>' +
-          '<br><b>Total:</b> ' + formatNumber(curVal.toFixed()) +
-          '<br><b>Increase:</b> ' + formatNumber(stepVal.toFixed()) + '</div>';
-        data.setValue(row, col + 1, tooltip);
-        data.setValue(row, col, stepVal);
-        prevVal = curVal;
+      // Add Tooltip columns
+      for (var col = 2; col <= data.getNumberOfColumns(); col += 2) {
+        data.insertColumn(col, { type: 'string', role: 'tooltip', 'p': { 'html': true } });
       }
-    }
 
-    // Set chart options
-    var bgcol = isDarkTheme() ? '#222' : '#FFF';
-    var textcol = isDarkTheme() ? '#CCC' : '#000';
-    var options = {
-      title:'{{ page.charttitle }}',
-      backgroundColor: bgcol,
-      chartArea:{
-        top: 50,
-        bottom: 100,
-        right: 150,
-        left: 200
-      },
-      hAxis: {
-        title: 'DPS Increase',
-        gridlines: {
-          count: 20
+      // Calculate Differences
+      for (var row = 0; row < data.getNumberOfRows(); row++) {
+        var prevVal = 0;
+        for (var col = 1; col < data.getNumberOfColumns(); col += 2) {
+          var curVal = data.getValue(row, col)
+          var stepVal = curVal - prevVal;
+          var tooltip = '<div class="chart-tooltip"><b>' + data.getValue(row, 0) +
+            '<br> Item Level ' + data.getColumnLabel(col) + '</b>' +
+            '<br><b>Total:</b> ' + formatNumber(curVal.toFixed()) +
+            '<br><b>Increase:</b> ' + formatNumber(stepVal.toFixed()) + '</div>';
+          data.setValue(row, col + 1, tooltip);
+          data.setValue(row, col, stepVal);
+          prevVal = curVal > prevVal ? curVal : prevVal;
+        }
+      }
+
+      // Set chart options
+      var bgcol = isDarkTheme() ? '#222' : '#FFF';
+      var textcol = isDarkTheme() ? '#CCC' : '#000';
+      var options = {
+        title:'{{ page.charttitle }}',
+        backgroundColor: bgcol,
+        chartArea:{
+          top: 50,
+          bottom: 100,
+          right: 150,
+          left: 200
         },
-        viewWindow: {
-          min: 0
+        hAxis: {
+          title: 'DPS Increase',
+          gridlines: {
+            count: 20
+          },
+          viewWindow: {
+            min: 0
+          },
+          textStyle: {
+            color: textcol,
+          },
+          titleTextStyle: {
+            color: textcol,
+          }
         },
-        textStyle: {
-          color: textcol,
+        vAxis: {
+          textStyle: {
+            fontSize: 12,
+            color: textcol,
+          },
+          titleTextStyle: {
+            color: textcol,
+          }
+        },
+        legend: {
+          textStyle: {
+            color: textcol
+          }
         },
         titleTextStyle: {
           color: textcol,
-        }
-      },
-      vAxis: {
-        textStyle: {
-          fontSize: 12,
-          color: textcol,
         },
-        titleTextStyle: {
-          color: textcol,
-        }
-      },
-      legend: {
-        textStyle: {
-          color: textcol
-        }
-      },
-      titleTextStyle: {
-        color: textcol,
-      },
-      tooltip: {
-        isHtml: true
-      },
-      isStacked: true
-    };
+        tooltip: {
+          isHtml: true
+        },
+        isStacked: true
+      };
 
-    // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-    chart.draw(excludeEmptyRows(data), options);
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+      chart.draw(excludeEmptyRows(data), options);
+    });
   }
 </script>
