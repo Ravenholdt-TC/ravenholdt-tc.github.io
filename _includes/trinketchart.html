@@ -35,10 +35,18 @@
       }});
       var data = new google.visualization.arrayToDataTable(arrayData);
 
-      var sortArray = []
-      for (var col = data.getNumberOfColumns() - 1; col > 0; col--)
-        sortArray.push({column: col, desc: true})
-      data.sort(sortArray);
+      // Sorting
+      var sortCol = data.addColumn('number');
+      for (var row = 0; row < data.getNumberOfRows(); row++) {
+        var biggestTotalValue = 0;
+        for (var col = 1; col < sortCol; col ++) {
+          if (data.getValue(row, col) > biggestTotalValue)
+            biggestTotalValue = data.getValue(row, col);
+        }
+        data.setValue(row, sortCol, biggestTotalValue);
+      }
+      data.sort([{column: sortCol, desc: true}]);
+      data.removeColumn(sortCol);
 
       // Add Tooltip columns
       for (var col = 2; col <= data.getNumberOfColumns(); col += 2) {
