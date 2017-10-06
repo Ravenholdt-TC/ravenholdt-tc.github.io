@@ -31,7 +31,9 @@
             {% for spec in specs %}
             {% unless spec.name == '' %}
             {% for entry in spec.items %}
+            {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
             <li><a href="{{ entry.url }}">{{ spec.name }}</a></li>
+            {% endif %}
             {% endfor %}
             {% endunless %}
             {% endfor %}

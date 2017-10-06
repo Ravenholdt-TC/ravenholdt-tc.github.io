@@ -32,7 +32,9 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
     {% for spec in specs %}
     {% unless spec.name == '' %}
     {% for entry in spec.items %}
+    {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
       <a class="list-group-item" href="{{ entry.url }}">{{ spec.name }}</a>
+    {% endif %}
     {% endfor %}
     {% endunless %}
     {% endfor %}

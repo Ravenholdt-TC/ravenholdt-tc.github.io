@@ -49,6 +49,17 @@ body {
     max-width: 150px;
 }
 
+#fightstyle-tabs.nav-pills > li { // Centering the tab nav
+    float:none;
+    display:inline-block;
+    *display:inline;
+    zoom:1;
+}
+
+#fightstyle-tabs {
+    text-align: center;
+}
+
 // Dark Theme
 body.dark-theme {
     background-color: $bg-dark;
@@ -81,7 +92,8 @@ body.dark-theme a.page-link,
 body.dark-theme a.page-link:focus,
 body.dark-theme .dropdown-menu,
 body.dark-theme .dropdown-menu>li>a:focus,
-body.dark-theme .form-control {
+body.dark-theme .form-control,
+body.dark-theme .nav-pills>li>a {
     background-color: lighten($content-bg-dark, 8%);
     border-color: $border-dark;
     color: $text-dark;
@@ -90,7 +102,9 @@ body.dark-theme .form-control {
 body.dark-theme a.list-group-item:hover,
 body.dark-theme a.page-link:hover,
 body.dark-theme .pagination>.active>a,
-body.dark-theme .dropdown-menu>li>a:hover {
+body.dark-theme .dropdown-menu>li>a:hover,
+body.dark-theme .nav-pills>li.active>a,
+body.dark-theme .nav-pills>li>a:hover {
     background-color: lighten($content-bg-dark, 16%);
     border-color: $border-dark;
     color: $text-dark;
