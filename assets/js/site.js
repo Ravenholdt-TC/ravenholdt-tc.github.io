@@ -41,5 +41,5 @@ function refreshTheme() {
 }
 
 function formatNumber(number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return new Intl.NumberFormat("en-US").format(number);
 }
