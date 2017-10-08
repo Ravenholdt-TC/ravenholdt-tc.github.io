@@ -37,10 +37,18 @@
         <select id="combinator-table-filter-legendary" class="form-control input-sm" onchange="updateCombinatorTable()">
           <option>All</option>
         </select>
+        <div class="btn-group" data-toggle="buttons">
+          <label class="btn btn-default">
+            <input id="combinator-table-filter-legedary-only" type="checkbox" autocomplete="off" onchange="updateCombinatorTable()">
+            Only
+          </label>
+        </div>
       </th>
       <th></th>
     </tr>
   </thead>
+  <tbody id="combinator-table-data">
+  </tbody>
 </table>
 <div id="combinator-loading" class="text-center">
   <h2>Loading...</h2>
@@ -49,19 +57,22 @@
 <script src="/assets/js/jquery.csv.min.js"></script>
 <script src="/assets/js/jquery.twbsPagination.min.js"></script>
 <script>
-  var combinatorRows;
+  var combinatorData = null;
+  var combinatorRows = null;
 
   function updateCombinatorTable() {
-    combinatorRows = document.querySelectorAll('#combinator-table tbody tr');
+    if (combinatorData == null)
+      return;
     var filterTalents = document.getElementById('combinator-table-filter-talents').value;
     var filterSet = document.getElementById('combinator-table-filter-set').value;
     var filterLegendary = document.getElementById('combinator-table-filter-legendary').value;
-    combinatorRows = $.grep(combinatorRows, function(el, idx) {
-      if (filterTalents !== "" && $('td:eq(1):contains("'+ filterTalents + '")', el).length == 0)
+    var oneLego = document.getElementById('combinator-table-filter-legedary-only').checked;
+    combinatorRows = $.grep(combinatorData, function(columns) {
+      if (filterTalents !== "" && columns[0].indexOf(filterTalents) == -1)
           return false;
-      if (filterSet !== "All" && $('td:eq(2)', el).text() != filterSet)
+      if (filterSet !== "All" && columns[1] != filterSet)
           return false;
-      if (filterLegendary !== "All" && $('td:eq(3):contains("'+ filterLegendary + '")', el).length == 0)
+      if (filterLegendary !== "All" && (columns[2].indexOf(filterLegendary) == -1 || oneLego && columns[2] != filterLegendary))
           return false;
       return true;
     });
@@ -71,42 +82,42 @@
       totalPages: Math.max(1, Math.ceil(combinatorRows.length / 15)),
       visiblePages: 3,
       onPageClick: function(event, page) {
-        $('#combinator-table tbody tr:visible').hide();
-        $(combinatorRows).slice((page - 1) * 15, page * 15).show();
+        var html = "";
+        combinatorRows.slice((page - 1) * 15, page * 15).forEach(function(columns) {
+          html += "<tr>";
+          html += "<td>" + columns[4] + "</td>";
+          html += "<td>" + columns[0] + "</td>";
+          html += "<td>" + columns[1] + "</td>";
+          html += "<td>" + columns[2] + "</td>";
+          html += "<td>" + formatNumber(columns[3]) + "</td>";
+          html += "</tr>";
+        });
+        document.getElementById('combinator-table-data').innerHTML = html;
       }
     });
   }
 
   $(document).ready(function() {
     $.get('/{{ page.csvfile }}', function(data) {
-      var arrays = $.csv.toArrays(data);
-      arrays.sort(function(a, b) {
+      combinatorData = $.csv.toArrays(data);
+      combinatorData.sort(function(a, b) {
         return b[3] - a[3];
       });
-      var html = "<tbody>";
       var idx = 0;
       var sets = [];
       var legos = [];
-      arrays.forEach(function(columns) {
+      combinatorData.forEach(function(columns) {
         idx++;
-        html += "<tr>";
-        html += "<td>" + idx + "</td>";
-        html += "<td>" + columns[0] + "</td>";
-        html += "<td>" + columns[1] + "</td>";
+        columns.push(idx);
         if ($.inArray(columns[1], sets) < 0) {
           sets.push(columns[1]);
         }
-        html += "<td>" + columns[2] + "</td>";
         columns[2].split(", ").forEach(function(lego) {
           if ($.inArray(lego, legos) < 0) {
             legos.push(lego);
           }
         });
-        html += "<td>" + formatNumber(columns[3]) + "</td>";
-        html += "</tr>";
       });
-      html += "</tbody>";
-      document.getElementById('combinator-table').insertAdjacentHTML('beforeend', html);
       sets.forEach(function(set) {
         document.getElementById('combinator-table-filter-set').insertAdjacentHTML('beforeend', "<option>" + set + "</option>");
       });

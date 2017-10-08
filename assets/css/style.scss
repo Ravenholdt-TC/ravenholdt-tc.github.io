@@ -46,6 +46,7 @@ body {
 }
 
 #combinator-table-filters .form-control {
+    display: inline;
     max-width: 150px;
 }
 
@@ -62,6 +63,15 @@ body {
 
 #github-changelog img {
     border-radius: 4px;
+}
+
+.btn-default:focus,
+.btn-default:active:focus,
+.btn-default.active:focus,
+.btn-default.focus,
+.btn-default:active.focus,
+.btn-default.active.focus {
+    outline: none;
 }
 
 // Dark Theme
@@ -97,7 +107,8 @@ body.dark-theme a.page-link:focus,
 body.dark-theme .dropdown-menu,
 body.dark-theme .dropdown-menu>li>a:focus,
 body.dark-theme .form-control,
-body.dark-theme .nav-pills>li>a {
+body.dark-theme .nav-pills>li>a,
+body.dark-theme .btn-default {
     background-color: lighten($content-bg-dark, 8%);
     border-color: $border-dark;
     color: $text-dark;
@@ -108,7 +119,10 @@ body.dark-theme a.page-link:hover,
 body.dark-theme .pagination>.active>a,
 body.dark-theme .dropdown-menu>li>a:hover,
 body.dark-theme .nav-pills>li.active>a,
-body.dark-theme .nav-pills>li>a:hover {
+body.dark-theme .nav-pills>li>a:hover,
+body.dark-theme .btn-default.active,
+body.dark-theme .btn-default:focus,
+body.dark-theme .btn-default:active {
     background-color: lighten($content-bg-dark, 16%);
     border-color: $border-dark;
     color: $text-dark;
