@@ -50,7 +50,7 @@ body {
     max-width: 150px;
 }
 
-#fightstyle-tabs.nav-pills > li { // Centering the tab nav
+#fightstyle-tabs.nav-pills>li { // Centering the tab nav
     float:none;
     display:inline-block;
     *display:inline;
@@ -136,6 +136,10 @@ body.dark-theme .form-control:focus {
 
 body.dark-theme .table-hover>tbody>tr:hover {
     background-color: lighten($content-bg-dark, 16%);
+}
+
+body.dark-theme #fightstyle-tabs.nav-pills>li>a {
+    border: 1px solid $border-dark;
 }
 
 // Helpers
