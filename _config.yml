@@ -8,6 +8,7 @@ defaults:
     values:
       layout: "default"
 exclude:
+  - .editorconfig
   - Gemfile
   - Gemfile.lock
   - devserve.bat
