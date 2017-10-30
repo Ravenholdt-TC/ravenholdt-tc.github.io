@@ -21,11 +21,11 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
 {% for simulation in simulations %}
 {% unless simulation.name == '' %}
 <h2>{{ simulation.name }}</h2>
-<table style="width: 100%; table-layout: fixed">
+<div class="row">
   {% assign gearsets = site.pages | where: "simulation", simulation.name | group_by: "gearset" | sort: "name" %}
   {% for gearset in gearsets %}
   {% unless gearset.name == '' %}
-  <td style="padding: 6px">
+  <div class="col-sm-6">
     <h3>{{ gearset.name }}</h3>
     <div class="list-group">
     {% assign specs = site.pages | where: "simulation", simulation.name | where: "gearset", gearset.name | group_by: "spec" | sort: "name" %}
@@ -39,9 +39,9 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
     {% endunless %}
     {% endfor %}
     </div>
-  </td>
+  </div>
   {% endunless %}
   {% endfor %}
-</table>
+</div>
 {% endunless %}
 {% endfor %}
