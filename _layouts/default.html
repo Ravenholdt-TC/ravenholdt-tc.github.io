@@ -1,16 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    {% include google-analytics.html %}
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{% if page.title %}{{ page.title }} &ndash; {% endif %}{{ site.name }}</title>
+    {% if page.desc %}<meta name="description" content="{{ page.desc }}">{% endif %}
     <link rel="shortcut icon" href="/assets/img/favicon.png">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script async src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script async src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <script src="/assets/js/site.js"></script>
+    {% if page.head %}{{ page.head }}{% endif %}
     {% include cookie-consent.html %}
     {% include google-adsense.html %}
   </head>
@@ -18,7 +21,7 @@
     <script>refreshTheme();</script>
     {% include navbar.html %}
     <nav id="header" class="navbar navbar-inverse container">
-      <a title="{{ site.name }}" href="/{{ site.baseurl }}"><img src="/assets/img/ravenholdt.png" alt="Ravenholdt Logo" width="173" height="150"></a>
+      <a title="{{ site.name }}" href="/{{ site.baseurl }}"><img src="/assets/img/ravenholdt.png" alt="Ravenholdt Logo" width="173" height="150" itemprop="logo"></a>
     </nav>
     <div id="content" class="container">
       {{ content }}
@@ -27,6 +30,5 @@
       <a id="theme-switch" onclick="onThemeSwitchClick()"></a>
       <script>updateThemeSwitchText();</script>
     </div>
-    {% include google-analytics.html %}
   </body>
 </html>

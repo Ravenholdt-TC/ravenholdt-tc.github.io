@@ -1,4 +1,5 @@
 ---
+desc: Ravenholdt theorycrafting community, latest simulation results and resources -based on SimulationCraft- for World of Warcraft rogues.
 ---
 
 Ravenholdt Theorycrafting
