@@ -14,6 +14,9 @@ exclude:
   - devserve.bat
   - README.md
   - UpdateDates.rb
+sass:
+  sass_dir: _sass
+  style: compressed
 plugins:
   - jekyll-avatar # Allow to embed GitHub profiles avatar
   - jekyll-sitemap # Generate the sitemap.xml
