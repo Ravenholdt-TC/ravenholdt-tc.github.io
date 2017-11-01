@@ -4,7 +4,7 @@ url: http://tc.ravenholdt.net
 defaults:
   -
     scope:
-      path: "" # an empty string here means all files in the project
+      path: "" # An empty string here means all files in the project
     values:
       layout: "default"
 exclude:
@@ -15,4 +15,7 @@ exclude:
   - README.md
   - UpdateDates.rb
 plugins:
-  - jekyll-sitemap
+  - jekyll-avatar # Allow to embed GitHub profiles avatar
+  - jekyll-sitemap # Generate the sitemap.xml
+  - jekyll-mentions # Allow to mention GitHub profiles
+  - jemoji # Enable GitHub emojis
