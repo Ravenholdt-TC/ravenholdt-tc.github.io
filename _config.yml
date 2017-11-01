@@ -19,13 +19,13 @@ defaults:
     scope:
       path: "" # An empty string here means all files in the project
     values:
-      layout: "default"
+      layout: "page"
   -
     scope:
       path: ""
       type: "posts"
     values:
-      layout: "default" # same layout as default for now, to be customized ?
+      layout: "post" # same layout as default for now, to be customized ?
 
 exclude:
   - .editorconfig
@@ -43,7 +43,12 @@ plugins:
   - jekyll-avatar # Allow to embed GitHub profiles avatar
   - jekyll-sitemap # Generate the sitemap.xml
   - jekyll-mentions # Allow to mention GitHub profiles
+  - jekyll-paginate # Posts pagination
   - jemoji # Enable GitHub emojis
+
+# Blog pagination
+paginate: 5
+paginate_path: "/blog/page:num/"
 
 # Custom global variables
 excerpt_separator: <!--more-->
