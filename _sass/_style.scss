@@ -1,53 +1,66 @@
 // Color Variables
-$bg: #EEE;
-$bg-dark: #111;
-$content-bg: #FFF;
-$content-bg-dark: #222;
+$bg: #111;
+$content-bg: #222;
+$content-bg-lt: lighten($content-bg, 8%);
+$content-bg-lt2: lighten($content-bg, 16%);
 $text-dark: #CCC;
 $link-dark: #B77C33;
 $border-dark: #080808;
 
 // General
 body {
-    padding: 12px;
-    padding-top: 62px;
     background-color: $bg;
+    color: $text-dark;
+    padding: 62px 12px 12px 12px;
 
     .container {
         border-radius: 12px;
     }
 
     #navigation {
-        position: absolute;
         left: 0;
+        position: fixed;
         right: 0;
         top: 0;
     }
 
     #header {
-        text-align: center;
         margin-bottom: 12px;
         padding: 6px;
+        text-align: center;
     }
 
     #content {
         background-color: $content-bg;
+        border: 1px solid $border-dark;
         padding: 24px;
 
         a.blog-post {
-            background-color: darken($content-bg, 8%);
+            background-color: $content-bg-lt;
             color: inherit;
             display: block;
             padding: .5rem 2rem;
             text-decoration: none;
 
-            h2 {
-                color: $link-dark;
+            &:hover {
+                background-color: $content-bg-lt2;
             }
 
-            &:hover {
-                background-color: darken($content-bg, 16%);
+            &:nth-of-type(1) {
+                margin-top: 3rem;
             }
+
+            p.read-more {
+                color: $link-dark;
+            }
+        }
+    }
+
+    a {
+        color: $link-dark;
+
+        &:hover {
+            color: lighten($link-dark, 20%);
         }
     }
 
@@ -62,10 +75,10 @@ body {
         max-width: 150px;
     }
 
-    #fightstyle-tabs.nav-pills > li { // Centering the tab nav
-        float:none;
+    // Centering the tab nav
+    #fightstyle-tabs.nav-pills > li {
         display:inline-block;
-        *display:inline;
+        float:none;
         zoom:1;
     }
 
@@ -89,33 +102,6 @@ body {
     hr {
         width: 30%
     }
-}
-
-// Dark Theme
-body.dark-theme {
-    background-color: $bg-dark;
-    color: $text-dark;
-
-    #content {
-        border: 1px solid $border-dark;
-        background-color: $content-bg-dark;
-
-        .blog-post {
-            background-color: lighten($content-bg-dark, 8%);
-
-            &:hover {
-                background-color: lighten($content-bg-dark, 16%);
-            }
-        }
-    }
-
-    a {
-        color: $link-dark;
-
-        &:hover {
-            color: lighten($link-dark, 20%);
-        }
-    }
 
     .dropdown-menu {
         > li > a {
@@ -135,21 +121,28 @@ body.dark-theme {
     .form-control,
     .nav-pills > li > a,
     .btn-default {
-        background-color: lighten($content-bg-dark, 8%);
+        background-color: $content-bg-lt;
         border-color: $border-dark;
         color: $text-dark;
     }
 
     a.list-group-item:hover,
     a.page-link:hover,
+    .pagination > .disabled > span,
+    .pagination > .disabled > span:hover,
+    .pagination > .disabled > span:focus,
+    .pagination > .disabled > a,
+    .pagination > .disabled > a:hover,
+    .pagination > .disabled > a:focus,
     .pagination > .active > a,
+    .pagination > .active > a:hover,
     .dropdown-menu > li > a:hover,
     .nav-pills > li.active > a,
     .nav-pills > li > a:hover,
     .btn-default.active,
     .btn-default:focus,
     .btn-default:active {
-        background-color: lighten($content-bg-dark, 16%);
+        background-color: $content-bg-lt2;
         border-color: $border-dark;
         color: $text-dark;
     }
@@ -161,7 +154,7 @@ body.dark-theme {
     }
 
     .table-hover > tbody > tr:hover {
-        background-color: lighten($content-bg-dark, 16%);
+        background-color: lighten($content-bg, 16%);
     }
 
     #fightstyle-tabs.nav-pills > li > a {
@@ -174,9 +167,9 @@ body.dark-theme {
     margin: auto;
 }
 .chart-tooltip {
+    color: #000;
     font-size: 18px;
     padding: 12px;
-    color: #000;
     white-space: nowrap;
 }
 
@@ -195,7 +188,7 @@ body.dark-theme {
 #relic-chart, #trinket-chart {
     width: 100%;
 
-    &.full-height  {
+    &.full-height {
         height: 1000px;
     }
 
