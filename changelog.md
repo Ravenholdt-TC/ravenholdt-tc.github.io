@@ -1,6 +1,6 @@
 ---
 title: Changelog
-desc: Latest changes made to the website.
+description: Latest changes made to the website.
 ---
 
 Website Changelog
