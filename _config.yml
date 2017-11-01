@@ -12,7 +12,7 @@ collections:
     permalink: /:collection/:name
   trinkets:
     output: true
-    permalink: /:collection/:name 
+    permalink: /:collection/:name
 
 defaults:
   -
@@ -26,6 +26,7 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+      permalink: /:year/:month/:day/:title
   - scope:
       path: ""
       type: "relics"
