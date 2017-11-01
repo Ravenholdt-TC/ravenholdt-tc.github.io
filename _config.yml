@@ -25,7 +25,18 @@ defaults:
       path: ""
       type: "posts"
     values:
-      layout: "post" # same layout as default for now, to be customized ?
+      layout: "post"
+  - scope:
+      path: ""
+      type: "relics"
+    values:
+      chartclass: full-height
+      num_ilevel_values: 20
+  - scope:
+      path: ""
+      type: "trinkets"
+    values:
+      chartclass: full-height
 
 exclude:
   - .editorconfig
