@@ -1,12 +1,9 @@
 ---
-title: "Creation of the blog!"
+title: "Creation of the Blog"
 date: 2017-11-1 17:30:00 +0100
 categories: website
 author: Aethys
 ---
-
-Creation of the Ravenholdt Theorycrafting Blog
-==============================================
 
 It's been a while since we discussed with Mystler about a blog for the website.
 
