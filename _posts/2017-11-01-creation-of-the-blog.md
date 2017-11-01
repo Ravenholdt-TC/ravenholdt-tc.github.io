@@ -9,6 +9,7 @@ It's been a while since we discussed with Mystler about a blog for the website.
 
 The main reason is theorycrafting isn't easy nor just about displaying numbers on some charts. In fact you have to understand what they means and in what context those numbers are **valid**.
 <!--more-->
+
 It also let us explaining to the public what we are currently doing, what issues we are facing and what solutions we might have. Aswell as what lead us to do this at the beginning.
 
 Yes, we want to make the website living and not anymore being a page with numbers.
