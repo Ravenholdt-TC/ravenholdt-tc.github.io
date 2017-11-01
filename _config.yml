@@ -1,12 +1,28 @@
 name: Ravenholdt Theorycrafting
 description: Rogue TC Data Collection Site
 url: http://tc.ravenholdt.net
+
+collections:
+  combinations:
+    output: true
+    permalink: /:collection/:name
+  relics:
+    output: true
+    permalink: /:collection/:name
+  relics2:
+    output: true
+    permalink: /:collection/:name
+  trinkets:
+    output: true
+    permalink: /:collection/:name 
+
 defaults:
   -
     scope:
       path: "" # An empty string here means all files in the project
     values:
       layout: "default"
+
 exclude:
   - .editorconfig
   - Gemfile
@@ -15,6 +31,7 @@ exclude:
   - README.md
   - UpdateDates.rb
   - assets/js/src
+
 sass:
   sass_dir: _sass
   style: compressed

@@ -14,34 +14,29 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        {% assign simulations = site.pages | group_by: "simulation" | sort: "name" %}
+        {% assign validCollections = "combinations, relics, trinkets" | split: ", " %}
+        {% assign simulations = site.documents | where_exp: "item", "validCollections contains item.collection" | group_by: "collection" | sort: "name" %}
         {% for simulation in simulations %}
-        {% unless simulation.name == '' %}
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ simulation.name }} <span class="caret"></span></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ simulation.name | capitalize }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            {% assign gearsets = site.pages | where: "simulation", simulation.name | group_by: "gearset" | sort: "name" %}
+            {% assign gearsets = site.documents | where: "collection", simulation.name | group_by: "gearset" | sort: "name" %}
             {% for gearset in gearsets reversed %}
-            {% unless gearset.name == '' %}
-            {% unless forloop.first == true %}
+            {% unless forloop.first %}
             <li role="separator" class="divider"></li>
             {% endunless %}
             <li class="dropdown-header text-center"><b>{{ gearset.name }}</b></li>
-            {% assign specs = site.pages | where: "simulation", simulation.name | where: "gearset", gearset.name | group_by: "spec" | sort: "name" %}
+            {% assign specs = site.documents | where: "collection", simulation.name | where: "gearset", gearset.name | group_by: "spec" | sort: "name" %}
             {% for spec in specs %}
-            {% unless spec.name == '' %}
             {% for entry in spec.items %}
             {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
             <li><a href="{{ entry.url }}">{{ spec.name }}</a></li>
             {% endif %}
             {% endfor %}
-            {% endunless %}
             {% endfor %}
-            {% endunless %}
             {% endfor %}
           </ul>
         </li>
-        {% endunless %}
         {% endfor %}
         <li><a href="/changelog.html">Changelog</a></li>
       </ul>
