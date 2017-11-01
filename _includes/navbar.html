@@ -21,7 +21,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ simulation.name }} <span class="caret"></span></a>
           <ul class="dropdown-menu">
             {% assign gearsets = site.pages | where: "simulation", simulation.name | group_by: "gearset" | sort: "name" %}
-            {% for gearset in gearsets %}
+            {% for gearset in gearsets reversed %}
             {% unless gearset.name == '' %}
             {% unless forloop.first == true %}
             <li role="separator" class="divider"></li>

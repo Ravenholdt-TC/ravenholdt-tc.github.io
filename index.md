@@ -24,7 +24,7 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
 <h2>{{ simulation.name }}</h2>
 <div class="row">
   {% assign gearsets = site.pages | where: "simulation", simulation.name | group_by: "gearset" | sort: "name" %}
-  {% for gearset in gearsets %}
+  {% for gearset in gearsets reversed %}
   {% unless gearset.name == '' %}
   <div class="col-sm-6">
     <h3>{{ gearset.name }}</h3>
