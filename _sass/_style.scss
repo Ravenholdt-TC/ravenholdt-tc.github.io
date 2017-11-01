@@ -19,9 +19,13 @@ body {
 
     #navigation {
         left: 0;
-        position: fixed;
+        position: absolute;
         right: 0;
         top: 0;
+
+        @media screen and (min-width: 768px) {
+            position: fixed;
+        }
     }
 
     #header {
@@ -77,9 +81,9 @@ body {
 
     // Centering the tab nav
     #fightstyle-tabs.nav-pills > li {
-        display:inline-block;
-        float:none;
-        zoom:1;
+        display: inline-block;
+        float: none;
+        zoom: 1;
     }
 
     #fightstyle-tabs {
