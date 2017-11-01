@@ -3,6 +3,7 @@ description: Rogue TC Data Collection Site
 url: http://tc.ravenholdt.net
 
 collections:
+  # Simulations
   combinations:
     output: true
     permalink: /:collection/:name
@@ -19,6 +20,12 @@ defaults:
       path: "" # An empty string here means all files in the project
     values:
       layout: "default"
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "default" # same layout as default for now, to be customized ?
 
 exclude:
   - .editorconfig
@@ -37,3 +44,6 @@ plugins:
   - jekyll-sitemap # Generate the sitemap.xml
   - jekyll-mentions # Allow to mention GitHub profiles
   - jemoji # Enable GitHub emojis
+
+# Custom global variables
+excerpt_separator: <!--more-->

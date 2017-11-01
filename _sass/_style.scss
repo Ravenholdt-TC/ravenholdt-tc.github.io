@@ -33,6 +33,22 @@ body {
     #content {
         background-color: $content-bg;
         padding: 24px;
+
+        a.blog-post {
+            background-color: darken($content-bg, 8%);
+            color: inherit;
+            display: block;
+            padding: .5rem 2rem;
+            text-decoration: none;
+
+            h2 {
+                color: $link-dark;
+            }
+
+            &:hover {
+                background-color: darken($content-bg, 16%);
+            }
+        }
     }
 
     #theme-switch {
@@ -83,6 +99,14 @@ body.dark-theme {
     #content {
         border: 1px solid $border-dark;
         background-color: $content-bg-dark;
+
+        .blog-post {
+            background-color: lighten($content-bg-dark, 8%);
+
+            &:hover {
+                background-color: lighten($content-bg-dark, 16%);
+            }
+        }
     }
 
     a {
@@ -143,7 +167,6 @@ body.dark-theme {
     #fightstyle-tabs.nav-pills > li > a {
         border: 1px solid $border-dark;
     }
-
 }
 
 // Helpers
