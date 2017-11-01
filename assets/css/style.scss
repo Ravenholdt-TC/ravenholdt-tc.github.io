@@ -15,138 +15,141 @@ body {
     padding: 12px;
     padding-top: 62px;
     background-color: $bg;
-}
 
-.container {
-    border-radius: 12px;
-}
-
-#navigation {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-}
-
-#header {
-    text-align: center;
-    margin-bottom: 12px;
-    padding: 6px;
-}
-
-#content {
-    background-color: $content-bg;
-    padding: 24px;
-}
-
-#theme-switch {
-    color: #777;
-    cursor: pointer;
-    text-decoration: none;
-}
-
-#combinator-table-filters .form-control {
-    display: inline;
-    max-width: 150px;
-}
-
-#fightstyle-tabs.nav-pills>li { // Centering the tab nav
-    float:none;
-    display:inline-block;
-    *display:inline;
-    zoom:1;
-}
-
-#fightstyle-tabs {
-    text-align: center;
-}
-
-#github-changelog img {
-    border-radius: 4px;
-}
-
-.btn-default:focus,
-.btn-default:active:focus,
-.btn-default.active:focus,
-.btn-default.focus,
-.btn-default:active.focus,
-.btn-default.active.focus {
-    outline: none;
+    .container {
+        border-radius: 12px;
+    }
+    
+    #navigation {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+    }
+    
+    #header {
+        text-align: center;
+        margin-bottom: 12px;
+        padding: 6px;
+    }
+    
+    #content {
+        background-color: $content-bg;
+        padding: 24px;
+    }
+    
+    #theme-switch {
+        color: #777;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    
+    #combinator-table-filters .form-control {
+        display: inline;
+        max-width: 150px;
+    }
+    
+    #fightstyle-tabs.nav-pills > li { // Centering the tab nav
+        float:none;
+        display:inline-block;
+        *display:inline;
+        zoom:1;
+    }
+    
+    #fightstyle-tabs {
+        text-align: center;
+    }
+    
+    #github-changelog img {
+        border-radius: 4px;
+    }
+    
+    .btn-default:focus,
+    .btn-default:active:focus,
+    .btn-default.active:focus,
+    .btn-default.focus,
+    .btn-default:active.focus,
+    .btn-default.active.focus {
+        outline: none;
+    }
 }
 
 // Dark Theme
 body.dark-theme {
     background-color: $bg-dark;
     color: $text-dark;
-}
 
-body.dark-theme #content {
-    border: 1px solid $border-dark;
-    background-color: $content-bg-dark;
-}
+    #content {
+        border: 1px solid $border-dark;
+        background-color: $content-bg-dark;
+    }
 
-body.dark-theme a {
-    color: $link-dark;
-}
+    a {
+        color: $link-dark;
 
-body.dark-theme a:hover {
-    color: lighten($link-dark, 20%);
-}
+        &:hover {
+            color: lighten($link-dark, 20%);
+        }
+    }
 
-body.dark-theme .dropdown-menu>li>a {
-    color: $text-dark;
-}
+    .dropdown-menu {
 
-body.dark-theme .dropdown-menu .divider {
-    background-color: $border-dark;
-}
+        > li > a {
+            color: $text-dark;
+        }
 
-body.dark-theme a.list-group-item,
-body.dark-theme a.page-link,
-body.dark-theme a.page-link:focus,
-body.dark-theme .dropdown-menu,
-body.dark-theme .dropdown-menu>li>a:focus,
-body.dark-theme .form-control,
-body.dark-theme .nav-pills>li>a,
-body.dark-theme .btn-default {
-    background-color: lighten($content-bg-dark, 8%);
-    border-color: $border-dark;
-    color: $text-dark;
-}
+        .divier {
+            background-color: $border-dark;
+        }
+    }
 
-body.dark-theme a.list-group-item:hover,
-body.dark-theme a.page-link:hover,
-body.dark-theme .pagination>.active>a,
-body.dark-theme .dropdown-menu>li>a:hover,
-body.dark-theme .nav-pills>li.active>a,
-body.dark-theme .nav-pills>li>a:hover,
-body.dark-theme .btn-default.active,
-body.dark-theme .btn-default:focus,
-body.dark-theme .btn-default:active {
-    background-color: lighten($content-bg-dark, 16%);
-    border-color: $border-dark;
-    color: $text-dark;
-}
+    a.list-group-item,
+    a.page-link,
+    a.page-link:focus,
+    .dropdown-menu,
+    .dropdown-menu > li > a:focus,
+    .form-control,
+    .nav-pills > li > a,
+    .btn-default {
+        background-color: lighten($content-bg-dark, 8%);
+        border-color: $border-dark;
+        color: $text-dark;
+    }
 
-body.dark-theme .form-control:focus {
-    border-color: $text-dark;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
-}
+    a.list-group-item:hover,
+    a.page-link:hover,
+    .pagination > .active > a,
+    .dropdown-menu > li > a:hover,
+    .nav-pills > li.active > a,
+    .nav-pills > li > a:hover,
+    .btn-default.active,
+    .btn-default:focus,
+    .btn-default:active {
+        background-color: lighten($content-bg-dark, 16%);
+        border-color: $border-dark;
+        color: $text-dark;
+    }
 
-body.dark-theme .table-hover>tbody>tr:hover {
-    background-color: lighten($content-bg-dark, 16%);
-}
+    .form-control:focus {
+        border-color: $text-dark;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(255, 255, 255, 0.6);
+    }
 
-body.dark-theme #fightstyle-tabs.nav-pills>li>a {
-    border: 1px solid $border-dark;
+    .table-hover > tbody > tr:hover {
+        background-color: lighten($content-bg-dark, 16%);
+    }
+
+    #fightstyle-tabs.nav-pills > li > a {
+        border: 1px solid $border-dark;
+    }
+    
 }
 
 // Helpers
 .center {
     margin: auto;
 }
-
 .chart-tooltip {
     font-size: 18px;
     padding: 12px;
@@ -168,12 +171,12 @@ body.dark-theme #fightstyle-tabs.nav-pills>li>a {
 
 #relic-chart, #trinket-chart {
     width: 100%;
-}
 
-#relic-chart.full-height, #trinket-chart.full-height {
-    height: 1000px;
-}
+    &.full-height  {
+        height: 1000px;
+    }
 
-#relic-chart.half-height, #trinket-chart.half-height {
-    height: 500px;
+    &.half-height {
+        height: 500px;
+    }
 }
