@@ -44,5 +44,8 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
   {% endunless %}
   {% endfor %}
 </div>
+{% unless forloop.last %}
+<hr>
+{% endunless %}
 {% endunless %}
 {% endfor %}
