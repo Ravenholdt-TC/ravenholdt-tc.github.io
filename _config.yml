@@ -1,6 +1,12 @@
 name: Ravenholdt Theorycrafting
 description: Rogue TC Data Collection Site
 url: http://tc.ravenholdt.net
+encoding: utf-8
+timezone: Europe/Paris
+
+sass:
+  sass_dir: _sass
+  style: compressed
 
 collections:
   # Simulations
@@ -48,9 +54,6 @@ exclude:
   - UpdateDates.rb
   - assets/js/src
 
-sass:
-  sass_dir: _sass
-  style: compressed
 plugins:
   - jekyll-avatar # Allow to embed GitHub profiles avatar
   - jekyll-sitemap # Generate the sitemap.xml
