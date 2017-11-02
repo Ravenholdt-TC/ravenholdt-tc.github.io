@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   {% if jekyll.environment == "production" %}
-    {% include google-analytics.html %}
+    {% include lib/google-analytics.html %}
   {% endif %}
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,16 +21,14 @@
   <script src="/assets/js/bootstrap-3.3.7.min.js"></script>
   <script src="/assets/js/site.min.js"></script>
   {% if page.head %}{{ page.head }}{% endif %}
-  {% include cookie-consent.html %}
+  {% include lib/cookie-consent.html %}
   {% if jekyll.environment == "production" %}
-    {% include google-adsense.html %}
+    {% include lib/google-adsense.html %}
   {% endif %}
 </head>
 <body>
-{% include navbar.html %}
-<nav id="header" class="navbar navbar-inverse container">
-  <a title="{{ site.name }}" href="/{{ site.baseurl }}"><img src="/assets/img/ravenholdt.png" alt="Ravenholdt Logo" width="173" height="150" itemprop="logo"></a>
-</nav>
+{% include layout-parts/navbar.html %}
+{% include layout-parts/header.html %}
 {{ content }}
 </body>
 </html>

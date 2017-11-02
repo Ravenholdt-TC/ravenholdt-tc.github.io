@@ -15,8 +15,8 @@ layout: default
     <b>depends heavily</b> on the used profile with its talents, legendaries etc. and is rather giving an outlook.
     If your character is different from the setup used here, personal simulations are recommended.
   </p>
-  {% include fightstyletabs.html %}
-  <div id="trinket-chart" class="{{ page.chartclass }}"></div>
+  {% include layout-parts/fightstyletabs.html %}
+  {% include layout-parts/googlechart.html %}
 </div>
 <script type="text/javascript" src="/assets/js/jquery.csv-0.8.3.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -129,7 +129,7 @@ layout: default
       };
 
       // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.BarChart( document.getElementById( "trinket-chart" ) );
+      var chart = new google.visualization.BarChart( document.getElementById( "google-chart" ) );
       chart.draw( excludeEmptyRows( data ), options );
     } );
   }
