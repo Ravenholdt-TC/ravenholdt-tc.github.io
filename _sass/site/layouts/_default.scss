@@ -1,7 +1,8 @@
 body {
   background-color: $bg;
   color: $text-dark;
-  padding: 62px 12px 12px 12px;
+  padding: $body-inner-padding;
+  padding-top: $body-inner-padding + 50px;
 
   hr {
     width: 30%
