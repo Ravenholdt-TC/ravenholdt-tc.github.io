@@ -35,14 +35,21 @@ defaults:
       permalink: /:year/:month/:day/:title
   - scope:
       path: ""
+      type: "combinations"
+    values:
+      layout: "combinations"
+  - scope:
+      path: ""
       type: "relics"
     values:
+      layout: "relics"
       chartclass: full-height
       num_ilevel_values: 20
   - scope:
       path: ""
       type: "trinkets"
     values:
+      layout: "trinkets"
       chartclass: full-height
 
 exclude:
