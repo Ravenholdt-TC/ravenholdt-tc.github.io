@@ -1,0 +1,24 @@
+body {
+  background-color: $bg;
+  color: $text-dark;
+  padding: 62px 12px 12px 12px;
+
+  hr {
+    width: 30%
+  }
+
+  a {
+    color: $link-dark;
+  
+    &:hover {
+      color: lighten($link-dark, 20%);
+    }
+  }
+
+  #content {
+    background-color: $content-bg;
+    border: 1px solid $border-dark;
+    padding: 24px;
+  }
+
+}

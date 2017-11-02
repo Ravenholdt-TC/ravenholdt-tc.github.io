@@ -1,0 +1,43 @@
+// Center block
+@mixin center-block {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+// Media Queries (breakpoint based on Bootstrap 4)
+$SM: pxRem(576); // Below, we would use $XS (but considering we use min-width we don't have to specify it)
+$MD: pxRem(768);
+$LG: pxRem(992);
+$XL: pxRem(1200);
+@mixin MQ($canvas) {
+	@if $canvas == SM {
+		@media screen and (min-width: $SM) {
+			@content;
+		}
+	} @else if $canvas == MD {
+		@media screen and (min-width: $MD) {
+			@content;
+		}
+	} @else if $canvas == LG {
+		@media screen and (min-width: $LG) {
+			@content;
+		}
+	} @else if $canvas == XL {
+		@media screen and (min-width: $XL) {
+			@content;
+		}
+	} @else {
+		@media screen and (min-width: $canvas) {
+			@content;
+		}
+	}
+}
+
+// Wrap to NoWrap flex-wrap defined at a canvas breakpoint
+@mixin flex-wrap-to-nowrap($canvas) {
+	flex-wrap: wrap;
+	@include MQ($canvas) {
+		flex-wrap: nowrap;
+	}
+}
