@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    {% if jekyll.environment == "production" %}
-      {% include google-analytics.html %}
-    {% endif %}
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% if page.title %}{{ page.title }} &ndash; {% endif %}{{ site.name }}</title>
-    {% if page.description %}<meta name="description" content="{{ page.description }}">{% endif %}
-    {% if page.meta %}
-      {% for meta in page.meta %}
+<head>
+  {% if jekyll.environment == "production" %}
+    {% include google-analytics.html %}
+  {% endif %}
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% if page.title %}{{ page.title }} &ndash; {% endif %}{{ site.name }}</title>
+  {% if page.description %}
+    <meta name="description" content="{{ page.description }}">{% endif %}
+  {% if page.meta %}
+    {% for meta in page.meta %}
       <meta name="{{ meta.name }}" content="{{ meta.content }}">
-      {% endfor %}
-    {% endif %}
-    <link rel="shortcut icon" href="/assets/img/favicon.png">
-    <link rel="stylesheet" href="/assets/css/style.css">
-    <script src="/assets/js/jquery-3.2.1.min.js"></script>
-    <script src="/assets/js/bootstrap-3.3.7.min.js"></script>
-    <script src="/assets/js/site.min.js"></script>
-    {% if page.head %}{{ page.head }}{% endif %}
-    {% include cookie-consent.html %}
-    {% if jekyll.environment == "production" %}
-      {% include google-adsense.html %}
-    {% endif %}
-  </head>
-  <body>
-    {% include navbar.html %}
-    <nav id="header" class="navbar navbar-inverse container">
-      <a title="{{ site.name }}" href="/{{ site.baseurl }}"><img src="/assets/img/ravenholdt.png" alt="Ravenholdt Logo" width="173" height="150" itemprop="logo"></a>
-    </nav>
-    {{ content }}
-  </body>
+    {% endfor %}
+  {% endif %}
+  <link rel="shortcut icon" href="/assets/img/favicon.png">
+  <link rel="stylesheet" href="/assets/css/style.css">
+  <script src="/assets/js/jquery-3.2.1.min.js"></script>
+  <script src="/assets/js/bootstrap-3.3.7.min.js"></script>
+  <script src="/assets/js/site.min.js"></script>
+  {% if page.head %}{{ page.head }}{% endif %}
+  {% include cookie-consent.html %}
+  {% if jekyll.environment == "production" %}
+    {% include google-adsense.html %}
+  {% endif %}
+</head>
+<body>
+{% include navbar.html %}
+<nav id="header" class="navbar navbar-inverse container">
+  <a title="{{ site.name }}" href="/{{ site.baseurl }}"><img src="/assets/img/ravenholdt.png" alt="Ravenholdt Logo" width="173" height="150" itemprop="logo"></a>
+</nav>
+{{ content }}
+</body>
 </html>

@@ -3,10 +3,10 @@
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-      <span class="sr-only">Toggle navigation</span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
       </button>
       <a class="navbar-brand" href="/">{{ site.name }}</a>
     </div>
@@ -17,26 +17,28 @@
         {% assign validCollections = "combinations, relics, trinkets" | split: ", " %}
         {% assign simulations = site.documents | where_exp: "item", "validCollections contains item.collection" | group_by: "collection" | sort: "name" %}
         {% for simulation in simulations %}
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ simulation.name | capitalize }} <span class="caret"></span></a>
-          <ul class="dropdown-menu">
-            {% assign gearsets = site.documents | where: "collection", simulation.name | group_by: "gearset" | sort: "name" %}
-            {% for gearset in gearsets reversed %}
-            {% unless forloop.first %}
-            <li role="separator" class="divider"></li>
-            {% endunless %}
-            <li class="dropdown-header text-center"><b>{{ gearset.name }}</b></li>
-            {% assign specs = site.documents | where: "collection", simulation.name | where: "gearset", gearset.name | group_by: "spec" | sort: "name" %}
-            {% for spec in specs %}
-            {% for entry in spec.items %}
-            {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
-            <li><a href="{{ entry.url }}">{{ spec.name }}</a></li>
-            {% endif %}
-            {% endfor %}
-            {% endfor %}
-            {% endfor %}
-          </ul>
-        </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              {{ simulation.name | capitalize }} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {% assign gearsets = site.documents | where: "collection", simulation.name | group_by: "gearset" | sort: "name" %}
+              {% for gearset in gearsets reversed %}
+                {% unless forloop.first %}
+                <li role="separator" class="divider"></li>
+                {% endunless %}
+                <li class="dropdown-header text-center"><b>{{ gearset.name }}</b></li>
+                {% assign specs = site.documents | where: "collection", simulation.name | where: "gearset", gearset.name | group_by: "spec" | sort: "name" %}
+                {% for spec in specs %}
+                  {% for entry in spec.items %}
+                    {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
+                      <li><a href="{{ entry.url }}">{{ spec.name }}</a></li>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              {% endfor %}
+            </ul>
+          </li>
         {% endfor %}
         <li><a href="/blog">Blog</a></li>
         <li><a href="/changelog">Changelog</a></li>

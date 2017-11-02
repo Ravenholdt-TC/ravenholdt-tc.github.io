@@ -1,6 +1,6 @@
-function isDarkTheme() {
-  if (typeof(Storage) !== "undefined") {
-    if (localStorage.getItem("darkTheme") === "false")
+function isDarkTheme () {
+  if ( typeof(Storage) !== "undefined" ) {
+    if ( localStorage.getItem( "darkTheme" ) === "false" )
       return false;
     else
       return true;
@@ -10,36 +10,36 @@ function isDarkTheme() {
   }
 }
 
-function setDarkTheme(enabled) {
-  if (enabled) {
+function setDarkTheme ( enabled ) {
+  if ( enabled ) {
     document.body.className = "dark-theme";
-    if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("darkTheme", "true");
+    if ( typeof(Storage) !== "undefined" ) {
+      localStorage.setItem( "darkTheme", "true" );
     }
   } else {
     document.body.className = "";
-    if (typeof(Storage) !== "undefined") {
-      localStorage.setItem("darkTheme", "false");
+    if ( typeof(Storage) !== "undefined" ) {
+      localStorage.setItem( "darkTheme", "false" );
     }
   }
 }
 
-function updateThemeSwitchText() {
-  if (isDarkTheme())
-    document.getElementById("theme-switch").innerHTML = "Switch to Light Theme";
+function updateThemeSwitchText () {
+  if ( isDarkTheme() )
+    document.getElementById( "theme-switch" ).innerHTML = "Switch to Light Theme";
   else
-    document.getElementById("theme-switch").innerHTML = "Switch to Dark Theme";
+    document.getElementById( "theme-switch" ).innerHTML = "Switch to Dark Theme";
 }
 
-function onThemeSwitchClick() {
-  setDarkTheme(!isDarkTheme());
+function onThemeSwitchClick () {
+  setDarkTheme( !isDarkTheme() );
   window.location.reload();
 }
 
-function refreshTheme() {
-  setDarkTheme(isDarkTheme());
+function refreshTheme () {
+  setDarkTheme( isDarkTheme() );
 }
 
-function formatNumber(number) {
-  return new Intl.NumberFormat("en-US").format(number);
+function formatNumber ( number ) {
+  return new Intl.NumberFormat( "en-US" ).format( number );
 }

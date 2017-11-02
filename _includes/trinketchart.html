@@ -15,75 +15,76 @@
 <script type="text/javascript" src="/assets/js/jquery.csv-0.8.3.min.js"></script>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-  google.charts.load('current', {'packages':['corechart']});
-  google.charts.setOnLoadCallback(drawChart);
+  google.charts.load( "current", { "packages": ["corechart"] } );
+  google.charts.setOnLoadCallback( drawChart );
 
-  function excludeEmptyRows(dataTable)
-  {
-    var view = new google.visualization.DataView(dataTable);
-    var rowIndexes = view.getFilteredRows([{column: 1, value: null}]);
-    view.hideRows(rowIndexes);
+  function excludeEmptyRows ( dataTable ) {
+    var view = new google.visualization.DataView( dataTable );
+    var rowIndexes = view.getFilteredRows( [{ column: 1, value: null }] );
+    view.hideRows( rowIndexes );
     return view.toDataTable();
   }
 
-  function drawChart() {
-    $.get('/{{ page.csvfile }}', function(csvString) {
-      var arrayData = $.csv.toArrays(csvString, {onParseValue: function(value, state) {
-        if (state.rowNum <= 1) {
-          return value.toString();
+  function drawChart () {
+    $.get( "/{{ page.csvfile }}", function ( csvString ) {
+      var arrayData = $.csv.toArrays( csvString, {
+        onParseValue: function ( value, state ) {
+          if ( state.rowNum <= 1 ) {
+            return value.toString();
+          }
+          return $.csv.hooks.castToScalar( value, state );
         }
-        return $.csv.hooks.castToScalar(value, state);
-      }});
-      var data = new google.visualization.arrayToDataTable(arrayData);
+      } );
+      var data = new google.visualization.arrayToDataTable( arrayData );
 
       // Sorting
-      var sortCol = data.addColumn('number');
-      for (var row = 0; row < data.getNumberOfRows(); row++) {
+      var sortCol = data.addColumn( "number" );
+      for ( var row = 0; row < data.getNumberOfRows(); row++ ) {
         var biggestTotalValue = 0;
-        for (var col = 1; col < sortCol; col ++) {
-          if (data.getValue(row, col) > biggestTotalValue)
-            biggestTotalValue = data.getValue(row, col);
+        for ( var col = 1; col < sortCol; col++ ) {
+          if ( data.getValue( row, col ) > biggestTotalValue )
+            biggestTotalValue = data.getValue( row, col );
         }
-        data.setValue(row, sortCol, biggestTotalValue);
+        data.setValue( row, sortCol, biggestTotalValue );
       }
-      data.sort([{column: sortCol, desc: true}]);
-      data.removeColumn(sortCol);
+      data.sort( [{ column: sortCol, desc: true }] );
+      data.removeColumn( sortCol );
 
       // Add Tooltip columns
-      for (var col = 2; col <= data.getNumberOfColumns(); col += 2) {
-        data.insertColumn(col, { type: 'string', role: 'tooltip', 'p': { 'html': true } });
+      for ( var col = 2; col <= data.getNumberOfColumns(); col += 2 ) {
+        data.insertColumn( col, { type: "string", role: "tooltip", "p": { "html": true } } );
       }
 
       // Calculate Differences
-      for (var row = 0; row < data.getNumberOfRows(); row++) {
+      for ( var row = 0; row < data.getNumberOfRows(); row++ ) {
         var prevVal = 0;
-        for (var col = 1; col < data.getNumberOfColumns(); col += 2) {
-          var curVal = data.getValue(row, col)
+        for ( var col = 1; col < data.getNumberOfColumns(); col += 2 ) {
+          var curVal = data.getValue( row, col );
           var stepVal = curVal - prevVal;
-          var tooltip = '<div class="chart-tooltip"><b>' + data.getValue(row, 0) +
-            '<br> Item Level ' + data.getColumnLabel(col) + '</b>' +
-            '<br><b>Total:</b> ' + formatNumber(curVal.toFixed()) +
-            '<br><b>Increase:</b> ' + formatNumber(stepVal.toFixed()) + '</div>';
-          data.setValue(row, col + 1, tooltip);
-          data.setValue(row, col, stepVal);
+          var tooltip = "<div class=\"chart-tooltip\"><b>" + data.getValue( row, 0 ) +
+            "<br> Item Level " + data.getColumnLabel( col ) + "</b>" +
+            "<br><b>Total:</b> " + formatNumber( curVal.toFixed() ) +
+            "<br><b>Increase:</b> " + formatNumber( stepVal.toFixed() ) + "</div>";
+          data.setValue( row, col + 1, tooltip );
+          data.setValue( row, col, stepVal );
           prevVal = curVal > prevVal ? curVal : prevVal;
         }
       }
 
       // Set chart options
-      var bgcol = isDarkTheme() ? '#222' : '#FFF';
-      var textcol = isDarkTheme() ? '#CCC' : '#000';
+      var bgcol = isDarkTheme() ? "#222" : "#FFF";
+      var textcol = isDarkTheme() ? "#CCC" : "#000";
       var options = {
-        title:'{{ page.charttitle }}',
+        title: "{{ page.charttitle }}",
         backgroundColor: bgcol,
-        chartArea:{
+        chartArea: {
           top: 50,
           bottom: 100,
           right: 150,
           left: 200
         },
         hAxis: {
-          title: 'DPS Increase',
+          title: "DPS Increase",
           gridlines: {
             count: 20
           },
@@ -91,19 +92,19 @@
             min: 0
           },
           textStyle: {
-            color: textcol,
+            color: textcol
           },
           titleTextStyle: {
-            color: textcol,
+            color: textcol
           }
         },
         vAxis: {
           textStyle: {
             fontSize: 12,
-            color: textcol,
+            color: textcol
           },
           titleTextStyle: {
-            color: textcol,
+            color: textcol
           }
         },
         legend: {
@@ -112,7 +113,7 @@
           }
         },
         titleTextStyle: {
-          color: textcol,
+          color: textcol
         },
         tooltip: {
           isHtml: true
@@ -121,8 +122,8 @@
       };
 
       // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.BarChart(document.getElementById('trinket-chart'));
-      chart.draw(excludeEmptyRows(data), options);
-    });
+      var chart = new google.visualization.BarChart( document.getElementById( "trinket-chart" ) );
+      chart.draw( excludeEmptyRows( data ), options );
+    } );
   }
 </script>
