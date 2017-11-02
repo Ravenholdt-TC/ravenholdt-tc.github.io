@@ -38,9 +38,9 @@
         <select id="combinator-table-filter-legendary" class="form-control input-sm" onchange="updateCombinatorTable()">
           <option>All</option>
         </select>
-        <div id="combinator-table-filter-legedary-only-area" class="btn-group" data-toggle="buttons">
+        <div id="combinator-table-filter-legendary-only-area" class="btn-group" data-toggle="buttons">
           <label class="btn btn-default">
-            <input id="combinator-table-filter-legedary-only" type="checkbox" autocomplete="off" onchange="updateCombinatorTable()">
+            <input id="combinator-table-filter-legendary-only" type="checkbox" autocomplete="off" onchange="updateCombinatorTable()">
             Only
           </label>
         </div>
@@ -69,7 +69,7 @@
     var filterTalents = document.getElementById('combinator-table-filter-talents').value;
     var filterSet = document.getElementById('combinator-table-filter-set').value;
     var filterLegendary = document.getElementById('combinator-table-filter-legendary').value;
-    var oneLego = hasSingleLegos && document.getElementById('combinator-table-filter-legedary-only').checked;
+    var oneLego = hasSingleLegos && document.getElementById('combinator-table-filter-legendary-only').checked;
     combinatorRows = $.grep(combinatorData, function(columns) {
       if (filterTalents !== "" && columns[0].indexOf(filterTalents) == -1)
           return false;
@@ -79,9 +79,11 @@
           return false;
       return true;
     });
-    if ($('#combinator-table-nav').data("twbs-pagination"))
-      $('#combinator-table-nav').twbsPagination('destroy');
-    $('#combinator-table-nav').twbsPagination({
+    var tableData = document.getElementById('combinator-table-data');
+    var $tableNav = $(document.getElementById('combinator-table-nav'));
+    if ($tableNav.data("twbs-pagination"))
+      $tableNav.twbsPagination('destroy');
+    $tableNav.twbsPagination({
       totalPages: Math.max(1, Math.ceil(combinatorRows.length / 15)),
       visiblePages: 3,
       onPageClick: function(event, page) {
@@ -101,7 +103,7 @@
           }
           html += "</tr>";
         });
-        document.getElementById('combinator-table-data').innerHTML = html;
+        tableData.innerHTML = html;
       }
     });
   }
@@ -138,7 +140,7 @@
         document.getElementById('combinator-table-filter-legendary').insertAdjacentHTML('beforeend', "<option>" + lego + "</option>");
       });
       if (!hasSingleLegos)
-        document.getElementById('combinator-table-filter-legedary-only-area').innerHTML = "";
+        document.getElementById('combinator-table-filter-legendary-only-area').innerHTML = "";
       if (hasBossDPS) {
         document.getElementById('combinator-table-headers').insertAdjacentHTML('beforeend', "<th>Boss DPS</th>");
         document.getElementById('combinator-table-filters').insertAdjacentHTML('beforeend', "<th></th>");
