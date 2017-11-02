@@ -46,6 +46,7 @@
       alert( "Error in query: " + response.getMessage() + " " + response.getDetailedMessage() );
       return;
     }
+    var col, row;
 
     var data = response.getDataTable();
 
@@ -53,12 +54,12 @@
     data.sort( [{ column: data.getNumberOfColumns() - 1, desc: true }, { column: 5, desc: true }] );
 
     // Mark annotation columns
-    for ( var col = 2; col < data.getNumberOfColumns(); col += 2 ) {
+    for ( col = 2; col < data.getNumberOfColumns(); col += 2 ) {
       data.setColumnProperties( col, { type: "string", role: "annotation" } );
     }
 
     // Add Tooltip and Style columns
-    for ( var col = 3; col <= data.getNumberOfColumns(); col += 4 ) {
+    for ( col = 3; col <= data.getNumberOfColumns(); col += 4 ) {
       data.insertColumn( col, { type: "string", role: "tooltip", "p": { "html": true } } );
       data.insertColumn( col + 1, { type: "string", role: "style" } );
     }
@@ -68,7 +69,7 @@
     var CrucibleShadowTraits = ["MasterOfShadows", "MurderousIntent", "Shadowbind", "TormentTheWeak", "ChaoticDarkness", "DarkSorrows"];
 
     // Calculate Differences
-    for ( var row = 0; row < data.getNumberOfRows(); row++ ) {
+    for ( row = 0; row < data.getNumberOfRows(); row++ ) {
       var relicStyle = "";
       if ( $.inArray( data.getValue( row, 0 ), CrucibleLightTraits ) >= 0 ) {
         relicStyle = "stroke-width: 4; stroke-color: #bb8800; color: #ffcc00";
@@ -76,7 +77,7 @@
         relicStyle = "stroke-width: 4; stroke-color: #5500aa; color: #8800ff";
       }
       var prevVal = 0;
-      for ( var col = 1; col < data.getNumberOfColumns(); col += 4 ) {
+      for ( col = 1; col < data.getNumberOfColumns(); col += 4 ) {
         var curVal = data.getValue( row, col );
         var stepVal = curVal - prevVal;
         var tooltip = "<div class=\"chart-tooltip\"><b>" + data.getValue( row, col + 1 ) + "x " + data.getValue( row, 0 ) +
@@ -95,7 +96,7 @@
 
     // Sort crucible traits to the bottom using a temporary column
     var sortCol = data.addColumn( "number" );
-    for ( var row = 0; row < data.getNumberOfRows(); row++ ) {
+    for ( row = 0; row < data.getNumberOfRows(); row++ ) {
       if ( $.inArray( data.getValue( row, 0 ), CrucibleLightTraits ) >= 0 || $.inArray( data.getValue( row, 0 ), CrucibleShadowTraits ) >= 0 ) {
         data.setValue( row, sortCol, 1 );
       } else {

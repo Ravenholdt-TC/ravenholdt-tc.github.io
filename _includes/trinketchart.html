@@ -36,12 +36,13 @@
         }
       } );
       var data = new google.visualization.arrayToDataTable( arrayData );
+      var col, row;
 
       // Sorting
       var sortCol = data.addColumn( "number" );
-      for ( var row = 0; row < data.getNumberOfRows(); row++ ) {
+      for ( row = 0; row < data.getNumberOfRows(); row++ ) {
         var biggestTotalValue = 0;
-        for ( var col = 1; col < sortCol; col++ ) {
+        for ( col = 1; col < sortCol; col++ ) {
           if ( data.getValue( row, col ) > biggestTotalValue )
             biggestTotalValue = data.getValue( row, col );
         }
@@ -51,14 +52,14 @@
       data.removeColumn( sortCol );
 
       // Add Tooltip columns
-      for ( var col = 2; col <= data.getNumberOfColumns(); col += 2 ) {
+      for ( col = 2; col <= data.getNumberOfColumns(); col += 2 ) {
         data.insertColumn( col, { type: "string", role: "tooltip", "p": { "html": true } } );
       }
 
       // Calculate Differences
-      for ( var row = 0; row < data.getNumberOfRows(); row++ ) {
+      for ( row = 0; row < data.getNumberOfRows(); row++ ) {
         var prevVal = 0;
-        for ( var col = 1; col < data.getNumberOfColumns(); col += 2 ) {
+        for ( col = 1; col < data.getNumberOfColumns(); col += 2 ) {
           var curVal = data.getValue( row, col );
           var stepVal = curVal - prevVal;
           var tooltip = "<div class=\"chart-tooltip\"><b>" + data.getValue( row, 0 ) +
