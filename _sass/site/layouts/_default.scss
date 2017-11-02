@@ -10,7 +10,7 @@ body {
 
   a {
     color: $link-dark;
-  
+
     &:hover {
       color: lighten($link-dark, 20%);
     }

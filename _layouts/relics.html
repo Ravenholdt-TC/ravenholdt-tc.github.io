@@ -24,32 +24,32 @@ layout: default
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script type="text/javascript">
-  google.charts.load( "current", { "packages": ["corechart"] } );
-  google.charts.setOnLoadCallback( drawChart );
+  google.charts.load("current", {"packages": ["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
 
-  function excludeEmptyRows ( dataTable ) {
-    var view = new google.visualization.DataView( dataTable );
-    var rowIndexes = view.getFilteredRows( [{ column: 1, value: null }] );
-    view.hideRows( rowIndexes );
+  function excludeEmptyRows(dataTable) {
+    var view = new google.visualization.DataView(dataTable);
+    var rowIndexes = view.getFilteredRows([{column: 1, value: null}]);
+    view.hideRows(rowIndexes);
     return view.toDataTable();
   }
 
-  function drawChart () {
+  function drawChart() {
     var columntypes = ["string"];
-    for ( var i = 0; i < {{ page.num_ilevel_values }}; i++ ) {
-      columntypes.push( "number" ); // Value
-      columntypes.push( "string" ); // Annotation
+    for (var i = 0; i < {{ page.num_ilevel_values }}; i++) {
+      columntypes.push("number"); // Value
+      columntypes.push("string"); // Annotation
     }
-    var query = new google.visualization.Query( "/{{ page.csvfile }}", {
+    var query = new google.visualization.Query("/" + "{{ page.csvfile }}", {
       csvColumns: columntypes,
       csvHasHeader: false
-    } );
-    query.send( handleQueryResponse );
+    });
+    query.send(handleQueryResponse);
   }
 
-  function handleQueryResponse ( response ) {
-    if ( response.isError() ) {
-      alert( "Error in query: " + response.getMessage() + " " + response.getDetailedMessage() );
+  function handleQueryResponse(response) {
+    if (response.isError()) {
+      alert("Error in query: " + response.getMessage() + " " + response.getDetailedMessage());
       return;
     }
     var col, row;
@@ -57,17 +57,17 @@ layout: default
     var data = response.getDataTable();
 
     // Sort by last column (relic ilevel), then 3 relics (column 5)
-    data.sort( [{ column: data.getNumberOfColumns() - 1, desc: true }, { column: 5, desc: true }] );
+    data.sort([{column: data.getNumberOfColumns() - 1, desc: true}, {column: 5, desc: true}]);
 
     // Mark annotation columns
-    for ( col = 2; col < data.getNumberOfColumns(); col += 2 ) {
-      data.setColumnProperties( col, { type: "string", role: "annotation" } );
+    for (col = 2; col < data.getNumberOfColumns(); col += 2) {
+      data.setColumnProperties(col, {type: "string", role: "annotation"});
     }
 
     // Add Tooltip and Style columns
-    for ( col = 3; col <= data.getNumberOfColumns(); col += 4 ) {
-      data.insertColumn( col, { type: "string", role: "tooltip", "p": { "html": true } } );
-      data.insertColumn( col + 1, { type: "string", role: "style" } );
+    for (col = 3; col <= data.getNumberOfColumns(); col += 4) {
+      data.insertColumn(col, {type: "string", role: "tooltip", "p": {"html": true}});
+      data.insertColumn(col + 1, {type: "string", role: "style"});
     }
 
     // Define Crucible T2
@@ -75,46 +75,46 @@ layout: default
     var CrucibleShadowTraits = ["MasterOfShadows", "MurderousIntent", "Shadowbind", "TormentTheWeak", "ChaoticDarkness", "DarkSorrows"];
 
     // Calculate Differences
-    for ( row = 0; row < data.getNumberOfRows(); row++ ) {
+    for (row = 0; row < data.getNumberOfRows(); row++) {
       var relicStyle = "";
-      if ( $.inArray( data.getValue( row, 0 ), CrucibleLightTraits ) >= 0 ) {
+      if ($.inArray(data.getValue(row, 0), CrucibleLightTraits) >= 0) {
         relicStyle = "stroke-width: 4; stroke-color: #bb8800; color: #ffcc00";
-      } else if ( $.inArray( data.getValue( row, 0 ), CrucibleShadowTraits ) >= 0 ) {
+      } else if ($.inArray(data.getValue(row, 0), CrucibleShadowTraits) >= 0) {
         relicStyle = "stroke-width: 4; stroke-color: #5500aa; color: #8800ff";
       }
       var prevVal = 0;
-      for ( col = 1; col < data.getNumberOfColumns(); col += 4 ) {
-        var curVal = data.getValue( row, col );
+      for (col = 1; col < data.getNumberOfColumns(); col += 4) {
+        var curVal = data.getValue(row, col);
         var stepVal = curVal - prevVal;
-        var tooltip = "<div class=\"chart-tooltip\"><b>" + data.getValue( row, col + 1 ) + "x " + data.getValue( row, 0 ) +
-          "</b><br><b>Total:</b> " + formatNumber( curVal.toFixed() ) +
-          "<br><b>Increase:</b> " + formatNumber( stepVal.toFixed() ) + "</div>";
-        data.setValue( row, col + 2, tooltip );
-        data.setValue( row, col + 3, relicStyle );
-        data.setValue( row, col, stepVal );
-        if ( stepVal < 0 ) {
-          data.setValue( row, col, 0 );
-          data.setValue( row, col + 1, "" );
+        var tooltip = "<div class=\"chart-tooltip\"><b>" + data.getValue(row, col + 1) + "x " + data.getValue(row, 0) +
+          "</b><br><b>Total:</b> " + formatNumber(curVal.toFixed()) +
+          "<br><b>Increase:</b> " + formatNumber(stepVal.toFixed()) + "</div>";
+        data.setValue(row, col + 2, tooltip);
+        data.setValue(row, col + 3, relicStyle);
+        data.setValue(row, col, stepVal);
+        if (stepVal < 0) {
+          data.setValue(row, col, 0);
+          data.setValue(row, col + 1, "");
         }
         prevVal = curVal > prevVal ? curVal : prevVal;
       }
     }
 
     // Sort crucible traits to the bottom using a temporary column
-    var sortCol = data.addColumn( "number" );
-    for ( row = 0; row < data.getNumberOfRows(); row++ ) {
-      if ( $.inArray( data.getValue( row, 0 ), CrucibleLightTraits ) >= 0 || $.inArray( data.getValue( row, 0 ), CrucibleShadowTraits ) >= 0 ) {
-        data.setValue( row, sortCol, 1 );
+    var sortCol = data.addColumn("number");
+    for (row = 0; row < data.getNumberOfRows(); row++) {
+      if ($.inArray(data.getValue(row, 0), CrucibleLightTraits) >= 0 || $.inArray(data.getValue(row, 0), CrucibleShadowTraits) >= 0) {
+        data.setValue(row, sortCol, 1);
       } else {
-        data.setValue( row, sortCol, 0 );
+        data.setValue(row, sortCol, 0);
       }
     }
-    data.sort( [{ column: sortCol, desc: false }] );
-    data.removeColumn( sortCol );
+    data.sort([{column: sortCol, desc: false}]);
+    data.removeColumn(sortCol);
 
     // Get content width (to force a min-width on mobile, can't do it in css because of the overflow)
-    var content = document.getElementById( "fightstyle-tabs" );
-    var contentWidth = content.innerWidth - window.getComputedStyle(content, null).getPropertyValue('padding-left') * 2;
+    var content = document.getElementById("fightstyle-tabs");
+    var contentWidth = content.innerWidth - window.getComputedStyle(content, null).getPropertyValue("padding-left") * 2;
 
     // Set chart options
     var chartWidth = document.documentElement.clientWidth >= 768 ? contentWidth : 700;
@@ -177,7 +177,7 @@ layout: default
     };
 
     // Instantiate and draw our chart, passing in some options.
-    var chart = new google.visualization.BarChart( document.getElementById( "google-chart" ) );
-    chart.draw( excludeEmptyRows( data ), options );
+    var chart = new google.visualization.BarChart(document.getElementById("google-chart"));
+    chart.draw(excludeEmptyRows(data), options);
   }
 </script>

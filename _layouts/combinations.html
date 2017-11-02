@@ -15,7 +15,8 @@ layout: default
   <p>
     The purpose of these simulations is to get a general idea of how different setups of this Tier will compare with each other and not
     to promote any definitive "best builds". Several variables (like different trinkets, WF/TF or ingame situations) are not
-    taken into account. This is why you, as always, should <b>simulate your own character</b> to find your optimal setup.
+    taken into account. This is why you, as always, should
+    <b>simulate your own character</b> to find your optimal setup.
   </p>
   {% include layout-parts/fightstyletabs.html %}
   <p>
@@ -71,90 +72,90 @@ layout: default
   var hasSingleLegos = false;
   var hasBossDPS = false;
 
-  function updateCombinatorTable () {
-    if ( combinatorData === null )
+  function updateCombinatorTable() {
+    if (combinatorData === null)
       return;
-    var filterTalents = document.getElementById( "combinator-table-filter-talents" ).value;
-    var filterSet = document.getElementById( "combinator-table-filter-set" ).value;
-    var filterLegendary = document.getElementById( "combinator-table-filter-legendary" ).value;
-    var oneLego = hasSingleLegos && document.getElementById( "combinator-table-filter-legendary-only" ).checked;
-    combinatorRows = $.grep( combinatorData, function ( columns ) {
-      if ( filterTalents !== "" && columns[0].indexOf( filterTalents ) === -1 )
+    var filterTalents = document.getElementById("combinator-table-filter-talents").value;
+    var filterSet = document.getElementById("combinator-table-filter-set").value;
+    var filterLegendary = document.getElementById("combinator-table-filter-legendary").value;
+    var oneLego = hasSingleLegos && document.getElementById("combinator-table-filter-legendary-only").checked;
+    combinatorRows = $.grep(combinatorData, function (columns) {
+      if (filterTalents !== "" && columns[0].indexOf(filterTalents) === -1)
         return false;
-      if ( filterSet !== "All" && columns[1] !== filterSet )
+      if (filterSet !== "All" && columns[1] !== filterSet)
         return false;
-      if ( filterLegendary !== "All" && (columns[2].indexOf( filterLegendary ) === -1 || oneLego && columns[2] !== filterLegendary) )
+      if (filterLegendary !== "All" && (columns[2].indexOf(filterLegendary) === -1 || oneLego && columns[2] !== filterLegendary))
         return false;
       return true;
-    } );
-    var tableData = document.getElementById( "combinator-table-data" );
-    var $tableNav = $( document.getElementById( "combinator-table-nav" ) );
-    if ( $tableNav.data( "twbs-pagination" ) )
-      $tableNav.twbsPagination( "destroy" );
-    $tableNav.twbsPagination( {
-      totalPages: Math.max( 1, Math.ceil( combinatorRows.length / 15 ) ),
+    });
+    var tableData = document.getElementById("combinator-table-data");
+    var $tableNav = $(document.getElementById("combinator-table-nav"));
+    if ($tableNav.data("twbs-pagination"))
+      $tableNav.twbsPagination("destroy");
+    $tableNav.twbsPagination({
+      totalPages: Math.max(1, Math.ceil(combinatorRows.length / 15)),
       visiblePages: 3,
-      onPageClick: function ( event, page ) {
+      onPageClick: function (event, page) {
         var html = "";
-        combinatorRows.slice( (page - 1) * 15, page * 15 ).forEach( function ( columns ) {
+        combinatorRows.slice((page - 1) * 15, page * 15).forEach(function (columns) {
           html += "<tr>";
           html += "<td>" + columns[columns.length - 1] + "</td>";
           html += "<td>" + columns[0] + "</td>";
           html += "<td>" + columns[1] + "</td>";
           html += "<td>" + columns[2] + "</td>";
-          html += "<td>" + formatNumber( columns[3] ) + "</td>";
-          if ( hasBossDPS ) {
+          html += "<td>" + formatNumber(columns[3]) + "</td>";
+          if (hasBossDPS) {
             html += "<td>";
-            if ( columns.length === 6 )
-              html += formatNumber( columns[4] );
+            if (columns.length === 6)
+              html += formatNumber(columns[4]);
             html += "</td>";
           }
           html += "</tr>";
-        } );
+        });
         tableData.innerHTML = html;
       }
-    } );
+    });
   }
 
-  $( document ).ready( function () {
-    $.get( "/{{ page.csvfile }}", function ( data ) {
-      combinatorData = $.csv.toArrays( data );
-      combinatorData.sort( function ( a, b ) {
+  $(document).ready(function () {
+    $.get("/" + "{{ page.csvfile }}", function (data) {
+      combinatorData = $.csv.toArrays(data);
+      combinatorData.sort(function (a, b) {
         return b[3] - a[3];
-      } );
+      });
       var idx = 0;
       var sets = [];
       var legos = [];
-      combinatorData.forEach( function ( columns ) {
+      combinatorData.forEach(function (columns) {
         idx++;
-        columns.push( idx );
-        if ( $.inArray( columns[1], sets ) < 0 ) {
-          sets.push( columns[1] );
+        columns.push(idx);
+        if ($.inArray(columns[1], sets) < 0) {
+          sets.push(columns[1]);
         }
-        if ( !hasSingleLegos && columns[2].indexOf( "," ) === -1 )
+        if (!hasSingleLegos && columns[2].indexOf(",") === -1)
           hasSingleLegos = true;
-        columns[2].split( ", " ).forEach( function ( lego ) {
-          if ( $.inArray( lego, legos ) < 0 ) {
-            legos.push( lego );
+        columns[2].split(", ").forEach(function (lego) {
+          if ($.inArray(lego, legos) < 0) {
+            legos.push(lego);
           }
-        } );
-        if ( !hasBossDPS && columns.length === 6 )
+        });
+        if (!hasBossDPS && columns.length === 6)
           hasBossDPS = true;
-      } );
-      sets.forEach( function ( set ) {
-        document.getElementById( "combinator-table-filter-set" ).insertAdjacentHTML( "beforeend", "<option>" + set + "</option>" );
-      } );
-      legos.forEach( function ( lego ) {
-        document.getElementById( "combinator-table-filter-legendary" ).insertAdjacentHTML( "beforeend", "<option>" + lego + "</option>" );
-      } );
-      if ( !hasSingleLegos )
-        document.getElementById( "combinator-table-filter-legendary-only-area" ).innerHTML = "";
-      if ( hasBossDPS ) {
-        document.getElementById( "combinator-table-headers" ).insertAdjacentHTML( "beforeend", "<th>Boss DPS</th>" );
-        document.getElementById( "combinator-table-filters" ).insertAdjacentHTML( "beforeend", "<th></th>" );
+      });
+      sets.forEach(function (set) {
+        document.getElementById("combinator-table-filter-set").insertAdjacentHTML("beforeend", "<option>" + set + "</option>");
+      });
+      legos.forEach(function (lego) {
+        document.getElementById("combinator-table-filter-legendary").insertAdjacentHTML("beforeend", "<option>" + lego + "</option>");
+      });
+      if (!hasSingleLegos)
+        document.getElementById("combinator-table-filter-legendary-only-area").innerHTML = "";
+      if (hasBossDPS) {
+        document.getElementById("combinator-table-headers").insertAdjacentHTML("beforeend", "<th>Boss DPS</th>");
+        document.getElementById("combinator-table-filters").insertAdjacentHTML("beforeend", "<th></th>");
       }
       updateCombinatorTable();
-      document.getElementById( "combinator-loading" ).style.display = "none";
-    } );
-  } );
+      document.getElementById("combinator-loading").style.display = "none";
+    });
+  });
 </script>
