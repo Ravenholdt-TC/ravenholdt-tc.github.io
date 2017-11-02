@@ -1,5 +1,9 @@
 #google-chart {
-  width: 100%;
+  @include MQ($MD, max) {
+    margin: 0 #{-$content-inner-padding};
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
 
   &.full-height {
     height: 1000px;

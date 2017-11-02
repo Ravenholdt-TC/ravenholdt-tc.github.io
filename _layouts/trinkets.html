@@ -78,9 +78,14 @@ layout: default
         }
       }
 
+      // Get content width (to force a min-width on mobile, can't do it in css because of the overflow)
+      var content = document.getElementById( "fightstyle-tabs" );
+      var contentWidth = content.innerWidth - window.getComputedStyle(content, null).getPropertyValue('padding-left') * 2;
+
       // Set chart options
-      var bgcol = isDarkTheme() ? "#222" : "#FFF";
-      var textcol = isDarkTheme() ? "#CCC" : "#000";
+      var chartWidth = document.documentElement.clientWidth >= 768 ? contentWidth : 700;
+      var bgcol = "#222";
+      var textcol = "#CCC";
       var options = {
         title: "{{ page.charttitle }}",
         backgroundColor: bgcol,
@@ -125,7 +130,8 @@ layout: default
         tooltip: {
           isHtml: true
         },
-        isStacked: true
+        isStacked: true,
+        width: chartWidth
       };
 
       // Instantiate and draw our chart, passing in some options.
