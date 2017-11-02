@@ -6,31 +6,17 @@
 }
 
 // Media Queries (breakpoint based on Bootstrap 4)
-$SM: pxRem(576); // Below, we would use $XS (but considering we use min-width we don't have to specify it)
-$MD: pxRem(768);
-$LG: pxRem(992);
-$XL: pxRem(1200);
-@mixin MQ($canvas) {
-	@if $canvas == SM {
-		@media screen and (min-width: $SM) {
-			@content;
-		}
-	} @else if $canvas == MD {
-		@media screen and (min-width: $MD) {
-			@content;
-		}
-	} @else if $canvas == LG {
-		@media screen and (min-width: $LG) {
-			@content;
-		}
-	} @else if $canvas == XL {
-		@media screen and (min-width: $XL) {
-			@content;
-		}
-	} @else {
-		@media screen and (min-width: $canvas) {
-			@content;
-		}
+$SM: 576px; // Below, we would use $XS (but considering we use min-width we don't have to specify it)
+$MD: 768px;
+$LG: 992px;
+$XL: 1200px;
+@mixin MQ($canvas, $width: min-width) {
+	@if $width == max {
+		$width: max-width;
+		$canvas: $canvas - 1px;
+	}
+	@media screen and ($width: $canvas) {
+		@content;
 	}
 }
 
