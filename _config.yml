@@ -1,4 +1,5 @@
 name: Ravenholdt Theorycrafting
+title: Ravenholdt Theorycrafting
 description: Rogue TC Data Collection Site
 url: http://tc.ravenholdt.net
 encoding: utf-8
@@ -62,6 +63,7 @@ exclude:
   - assets/js/src
 
 plugins:
+  - jekyll-feed # Create RSS Feed for the blogposts
   - jekyll-avatar # Allow to embed GitHub profiles avatar
   - jekyll-sitemap # Generate the sitemap.xml
   - jekyll-mentions # Allow to mention GitHub profiles
@@ -74,3 +76,6 @@ paginate_path: "/blog/page:num/"
 
 # Custom global variables
 excerpt_separator: <!--more-->
+
+# GitHub Pages metadata
+repository: Ravenholdt-TC/ravenholdt-tc.github.io
