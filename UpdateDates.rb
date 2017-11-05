@@ -12,7 +12,7 @@ puts updatedFiles
 puts
 
 puts 'Updating corresponding HTML files...'
-Dir.glob("combinations/*.html").each do |file|
+Dir.glob("_combinations/*.html").each do |file|
   puts "Checking #{file}"
   text = File.read(file)
   updatedFiles.each do |csv|
@@ -25,7 +25,7 @@ Dir.glob("combinations/*.html").each do |file|
   end
 end
 
-Dir.glob("relics/*.html").each do |file|
+Dir.glob("_relics/*.html").each do |file|
   puts "Checking #{file}"
   text = File.read(file)
   updatedFiles.each do |csv|
@@ -37,7 +37,7 @@ Dir.glob("relics/*.html").each do |file|
   end
 end
 
-Dir.glob("trinkets/*.html").each do |file|
+Dir.glob("_trinkets/*.html").each do |file|
   puts "Checking #{file}"
   text = File.read(file)
   updatedFiles.each do |csv|
