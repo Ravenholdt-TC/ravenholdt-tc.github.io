@@ -61,6 +61,7 @@ exclude:
   - README.md
   - UpdateDates.rb
   - assets/js/src
+  - data/meta
 
 plugins:
   - jekyll-feed # Create RSS Feed for the blogposts
