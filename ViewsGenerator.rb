@@ -38,6 +38,14 @@ fancyTierExpanded = {
   'T21H' => 'Tier 21 Heroic',
 }
 
+# Empty each collections
+simCollections.each do |key, value|
+  if value != '_combinations' # Do not empty combinations views for now
+    FileUtils.rm_f Dir.glob("value/*")
+  end
+end
+
+# Generate the new views
 Dir.glob("#{dataFolder}/*.csv").each do |file|
   reportFilename = file.gsub("#{dataFolder}/", '').gsub(".csv", '')
   csvFile = "#{dataFolder}/#{reportFilename}.csv"
@@ -70,7 +78,7 @@ Dir.glob("#{dataFolder}/*.csv").each do |file|
     # Meta Infos
     json = JSON.parse(File.read(metaFile))
     simc = {
-      'buildDate' => json['build_date'],
+      'buildDate' => json['build_date'].gsub('  ', ' '),
       'targetError' => json['options']['target_error']
     }
     wow = {
