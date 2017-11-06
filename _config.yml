@@ -59,7 +59,7 @@ exclude:
   - Gemfile.lock
   - devserve.bat
   - README.md
-  - UpdateDates.rb
+  - ViewsGenerator.rb
   - assets/js/src
   - data/meta
 
