@@ -80,3 +80,9 @@ excerpt_separator: <!--more-->
 
 # GitHub Pages metadata
 repository: Ravenholdt-TC/ravenholdt-tc.github.io
+
+authors:
+  Aethys:
+    github: Aethys256
+  Mystler:
+    github: Mystler
