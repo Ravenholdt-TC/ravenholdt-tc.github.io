@@ -6,10 +6,10 @@ layout: default
   <h1>{{ page.title }}</h1>
   <p>
     <b>Information:</b><br>
-    These simulations are all based on the {{ page.gearset }} default profiles from SimulationCraft. Set pieces and legendaries
+    These simulations are all based on the {{ page.tier }} default profiles from SimulationCraft. Set pieces and legendaries
     have been modified accordingly.<br>
     Furthermore, in order to keep the number of combinations from exploding, only DPS legendaries have been used.<br>
-    The target error was 0.4% which means you can consider everything within a ~6k DPS range to be mostly equal and requiring a
+    The target error was {{ page.targeterror }}% which means you can consider everything within a ~6k DPS range to be mostly equal and requiring a
     more detailed investigation.
   </p>
   <p>
@@ -21,7 +21,8 @@ layout: default
   {% include layout-parts/fightstyletabs.html %}
   <p>
     <b>Last Update:</b> {{ page.lastupdate }}<br>
-    <b>WoW-Build:</b> {{ page.build }}
+    <b>WoW-Build:</b> {{ page.build }}<br>
+    <b>Target Error:</b> {{ page.targeterror }}%
   </p>
   <table id="combinator-table" class="table table-hover">
     <thead>

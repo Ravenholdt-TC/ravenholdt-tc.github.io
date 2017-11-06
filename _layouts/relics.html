@@ -20,6 +20,23 @@ layout: default
     If your character is different from the setup used here, personal simulations are recommended.
   </p>
   {% include layout-parts/fightstyletabs.html %}
+  <p>
+    <b>Last Update:</b> {{ page.lastupdate }}<br>
+    <b>WoW-Build:</b> {{ page.build }}<br>
+    <b>Target Error:</b> {{ page.targeterror }}%<br>
+    <b>Talents:</b>
+    <ul>
+      {% for talent in page.talents %}
+        <li>{{ talent }}</li>
+      {% endfor %}
+    </ul>
+    <b>Legendaries:</b>
+    <ul>
+      {% for legendary in page.legendaries %}
+        <li>{{ legendary }}</li>
+      {% endfor %}
+    </ul>
+  </p>
   {% include layout-parts/googlechart.html %}
 </div>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

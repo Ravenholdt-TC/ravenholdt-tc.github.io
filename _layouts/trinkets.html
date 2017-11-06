@@ -5,8 +5,7 @@ layout: default
 <div id="content" class="container">
   <h1>{{ page.title }}</h1>
   <p>
-    Here, you can compare expected DPS increase from trinkets. All of the trinkets in the following chart have
-    been simulated from item level {{ page.min_ilevel }} to {{ page.max_ilevel }} in steps of {{ page.ilevel_steps }}.
+    Here, you can compare expected DPS increase from trinkets.
   </p>
   <p>
     In order to compare trinkets with this chart, look for the end of the bars corresponding to the item level of
@@ -16,6 +15,23 @@ layout: default
     If your character is different from the setup used here, personal simulations are recommended.
   </p>
   {% include layout-parts/fightstyletabs.html %}
+  <p>
+    <b>Last Update:</b> {{ page.lastupdate }}<br>
+    <b>WoW-Build:</b> {{ page.build }}<br>
+    <b>Target Error:</b> {{ page.targeterror }}%<br>
+    <b>Talents:</b>
+    <ul>
+      {% for talent in page.talents %}
+        <li>{{ talent }}</li>
+      {% endfor %}
+    </ul>
+    <b>Legendaries:</b>
+    <ul>
+      {% for legendary in page.legendaries %}
+        <li>{{ legendary }}</li>
+      {% endfor %}
+    </ul>
+  </p>
   {% include layout-parts/googlechart.html %}
 </div>
 <script type="text/javascript" src="/assets/js/jquery.csv-0.8.3.min.js"></script>

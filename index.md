@@ -23,12 +23,12 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
 {% for simulation in simulations %}
 <h2>{{ simulation.name | capitalize }}</h2>
 <div class="row">
-  {% assign gearsets = site.documents | where: "collection", simulation.name | group_by: "gearset" | sort: "name" %}
-  {% for gearset in gearsets reversed %}
+  {% assign tiers = site.documents | where: "collection", simulation.name | group_by: "tier" | sort: "name" %}
+  {% for tier in tiers reversed %}
   <div class="col-sm-6">
-    <h3>{{ gearset.name }}</h3>
+    <h3>{{ tier.name }}</h3>
     <div class="list-group">
-    {% assign specs = site.documents | where: "collection", simulation.name | where: "gearset", gearset.name | group_by: "spec" | sort: "name" %}
+    {% assign specs = site.documents | where: "collection", simulation.name | where: "tier", tier.name | group_by: "spec" | sort: "name" %}
     {% for spec in specs %}
     {% for entry in spec.items %}
     {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
