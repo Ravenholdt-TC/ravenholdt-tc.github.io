@@ -147,7 +147,7 @@ Dir.glob("#{dataFolder}/*.csv").each do |file|
     # Write the view
     if currentWebsite == 'ravenholdt-tc.github.io'
       viewFile = "_#{simCollections[reportInfos['type']]}/#{reportInfos['fightstyle']}-#{reportInfos['tier']}-#{reportInfos['class']}-#{reportSpecWithSuffix.gsub(' ', '-')}.html"
-    elsif currentWebsite = 'herodamage.github.io'
+    elsif currentWebsite == 'herodamage.github.io'
       viewFile = "_#{reportInfos['class']}-#{simCollections[reportInfos['type']]}/#{reportInfos['fightstyle']}-#{reportInfos['tier']}-#{reportInfos['class'].gsub('_', '-')}-#{reportSpecWithSuffix.gsub(' ', '-')}.html"
     end
     File.open(viewFile.downcase, 'w') do |view|
