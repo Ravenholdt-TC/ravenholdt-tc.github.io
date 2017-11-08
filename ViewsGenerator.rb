@@ -4,12 +4,14 @@ require 'json'
 require 'active_support'
 require 'active_support/all'
 
+currentWebsite = Dir.pwd.split('/')[-1]
+
 dataFolder = "data"
 metaFolder = "data/meta"
 simCollections = {
-  'Combinator' => '_combinations',
-  'Relics' => '_relics',
-  'Trinkets' => '_trinkets'
+  'Combinator' => 'combinations',
+  'Relics' => 'relics',
+  'Trinkets' => 'trinkets'
 }
 
 # TODO: Make cleaner fancy things
@@ -62,6 +64,15 @@ Dir.glob("#{dataFolder}/*.csv").each do |file|
       'spec' => reportInfosRaw[4],
       'suffix' => reportInfosRaw[5]
     }
+    # Hotfix for SimC Class/Spec separated by an underscore
+    if reportInfosRaw[4] == 'Beast' && reportInfosRaw[5] == 'Mastery'
+      reportInfos['spec'] += " #{reportInfosRaw[5]}"
+      reportInfos['suffix'] = reportInfosRaw[6]
+    elsif (reportInfosRaw[3] == 'Death' && reportInfosRaw[4] == 'Knight') || (reportInfosRaw[3] == 'Demon' && reportInfosRaw[4] == 'Hunter')
+      reportInfos['class'] += "_#{reportInfosRaw[4]}"
+      reportInfos['spec'] = reportInfosRaw[5]
+      reportInfos['suffix'] = reportInfosRaw[6]
+    end
     reportFancyCollection = "#{fancyCollection[reportInfos['type']]}"
     reportFancyFightstyle = "#{fancyFightstyles[reportInfos['fightstyle']]}"
     reportFancyTier = "#{fancyTier[reportInfos['tier']]}"
@@ -90,10 +101,10 @@ Dir.glob("#{dataFolder}/*.csv").each do |file|
     # Front matter output
     front = {
       'title' => " #{reportFancyTier} #{reportFancyFightstyle} #{reportFancyCollection} Simulations - #{reportSpecWithSuffix}",
-      'description' => " #{reportInfos['type']} results of the #{reportFancyTierExpanded} #{reportFancyFightstyle} simulations for the #{reportInfos['class']} #{reportSpecWithSuffix}.",
+      'description' => " #{reportInfos['type']} results of the #{reportFancyTierExpanded} #{reportFancyFightstyle} simulations for the #{reportInfos['class'].gsub('_', ' ')} #{reportSpecWithSuffix}.",
       'fightstyle' => " #{reportFancyFightstyle}",
       'tier' => " #{reportFancyTier}",
-      'class' => " #{reportInfos['class']}",
+      'class' => " #{reportInfos['class'].gsub('_', ' ')}",
       'spec' => " #{reportSpecWithSuffix}"
     }
 
@@ -134,7 +145,11 @@ Dir.glob("#{dataFolder}/*.csv").each do |file|
 
 
     # Write the view
-    viewFile = "#{simCollections[reportInfos['type']]}/#{reportInfos['fightstyle']}-#{reportInfos['tier']}-#{reportInfos['class']}-#{reportSpecWithSuffix.gsub(' ', '-')}.html"
+    if currentWebsite == 'ravenholdt-tc.github.io'
+      viewFile = "_#{simCollections[reportInfos['type']]}/#{reportInfos['fightstyle']}-#{reportInfos['tier']}-#{reportInfos['class']}-#{reportSpecWithSuffix.gsub(' ', '-')}.html"
+    elsif currentWebsite = 'herodamage.github.io'
+      viewFile = "_#{reportInfos['class']}-#{simCollections[reportInfos['type']]}/#{reportInfos['fightstyle']}-#{reportInfos['tier']}-#{reportInfos['class'].gsub('_', '-')}-#{reportSpecWithSuffix.gsub(' ', '-')}.html"
+    end
     File.open(viewFile.downcase, 'w') do |view|
       view.puts "---"
       front.each do |key, value|

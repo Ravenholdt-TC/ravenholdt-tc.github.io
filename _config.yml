@@ -34,24 +34,27 @@ defaults:
     values:
       layout: "post"
       permalink: /:year/:month/:day/:title
-  - scope:
+  -
+    scope:
       path: ""
       type: "combinations"
     values:
       layout: "combinations"
-  - scope:
+  -
+    scope:
       path: ""
       type: "relics"
     values:
       layout: "relics"
-      chartclass: full-height
+      chartclass: "full-height"
       num_ilevel_values: 20
-  - scope:
+  -
+    scope:
       path: ""
       type: "trinkets"
     values:
       layout: "trinkets"
-      chartclass: full-height
+      chartclass: "full-height"
 
 exclude:
   - .editorconfig
