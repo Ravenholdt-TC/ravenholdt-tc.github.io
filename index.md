@@ -18,7 +18,7 @@ Here are links you may want to check out for further information:
 
 If you have any questions, feel free to visit the class Discord and contact Aethys or Mystler.
 
-{% assign validCollections = "combinations, relics, trinkets" | split: ", " %}
+{% assign validCollections = "combinations, relics, trinkets" %}
 {% assign simulations = site.documents | where_exp: "item", "validCollections contains item.collection" | group_by: "collection" | sort: "name" %}
 {% for simulation in simulations %}
 <h2>{{ simulation.name | capitalize }}</h2>

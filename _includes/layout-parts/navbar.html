@@ -14,7 +14,7 @@
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-        {% assign validCollections = "combinations, relics, trinkets" | split: ", " %}
+        {% assign validCollections = "combinations, relics, trinkets" %}
         {% assign simulations = site.documents | where_exp: "item", "validCollections contains item.collection" | group_by: "collection" | sort: "name" %}
         {% for simulation in simulations %}
           <li class="dropdown">
