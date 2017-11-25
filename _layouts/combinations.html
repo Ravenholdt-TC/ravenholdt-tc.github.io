@@ -128,7 +128,7 @@ layout: default
           sets.push(columns[1]);
         }
         columns[2].split(", ").forEach(function (lego) {
-          if (lego !== "None" &&$.inArray(lego, legos) < 0) {
+          if (lego !== "None" && $.inArray(lego, legos) < 0) {
             legos.push(lego);
           }
         });
@@ -147,7 +147,7 @@ layout: default
         document.getElementById("combinator-table-filter-legendaries").insertAdjacentHTML("beforeend", "<option>" + lego + "</option>");
       });
       var legoSelect = $("#combinator-table-filter-legendaries");
-      var beltIdx = legos.indexOf("Belt"); // Don't show Belt by default
+      var beltIdx = legos.indexOf("Cinidaria"); // Don't show Cinidaria by default
       if (beltIdx > -1) {
         legos.splice(beltIdx, 1);
       }
