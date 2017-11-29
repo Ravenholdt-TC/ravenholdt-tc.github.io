@@ -24,18 +24,17 @@ If you have any questions, feel free to visit the class Discord and contact Aeth
 {% for simulation in simulations %}
 <h2>{{ simulation.name | capitalize }}</h2>
 <div class="row">
-  {% assign tiers = site.documents | where: "collection", simulation.name | group_by: "tier" | sort: "name" %}
+  {% assign tiers = simulation.items | group_by: "tier" | sort: "name" %}
   {% for tier in tiers reversed %}
   <div class="col-sm-6">
     <h3>{{ tier.name }}</h3>
     <div class="list-group">
-    {% assign specs = site.documents | where: "collection", simulation.name | where: "tier", tier.name | group_by: "spec" | sort: "name" %}
+    {% assign specs = tier.items | group_by: "spec" | sort: "name" %}
     {% for spec in specs %}
-    {% for entry in spec.items %}
-    {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
-      <a class="list-group-item" href="{{ entry.url }}">{{ spec.name }}<span class="update-date">{{ entry.lastupdate | truncatewords: 2 | remove: '...' }}</span></a>
-    {% endif %}
-    {% endfor %}
+      {% assign entry = spec.items | sort: "name" | first %}
+      {% if entry.fightstyle == nil or entry.fightstyle == "Single Target" %}
+        <a class="list-group-item" href="{{ entry.url }}">{{ spec.name }}<span class="update-date">{{ entry.lastupdate | truncatewords: 2 | remove: '...' }}</span></a>
+      {% endif %}
     {% endfor %}
     </div>
   </div>
